@@ -1,0 +1,718 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="写在前面猪来了中转盘的按钮十分带感，有一种3D的效果，而实际上是伪3D，且实现起来十分容易，本篇文章就记录一下如何实现这个按钮的效果。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="仿猪来了转盘button的实现">
+<meta property="og:url" content="https://948080952.github.io/posts/imitate_button_in_pigcoming/index.html">
+<meta property="og:site_name" content="DaiPei's Blog">
+<meta property="og:description" content="写在前面猪来了中转盘的按钮十分带感，有一种3D的效果，而实际上是伪3D，且实现起来十分容易，本篇文章就记录一下如何实现这个按钮的效果。">
+<meta property="og:image" content="https://948080952.github.io/posts/imitate_button_in_pigcoming/1.png">
+<meta property="og:image" content="https://948080952.github.io/posts/imitate_button_in_pigcoming/2.gif">
+<meta property="og:updated_time" content="2017-06-10T06:16:07.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="仿猪来了转盘button的实现">
+<meta name="twitter:description" content="写在前面猪来了中转盘的按钮十分带感，有一种3D的效果，而实际上是伪3D，且实现起来十分容易，本篇文章就记录一下如何实现这个按钮的效果。">
+<meta name="twitter:image" content="https://948080952.github.io/posts/imitate_button_in_pigcoming/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://948080952.github.io/posts/imitate_button_in_pigcoming/"/>
+
+
+
+
+
+  <title>仿猪来了转盘button的实现 | DaiPei's Blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DaiPei's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            Commonweal 404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://948080952.github.io/posts/imitate_button_in_pigcoming/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DaiPei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/daipei.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DaiPei's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">仿猪来了转盘button的实现</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-05T19:50:59+08:00">
+                2017-03-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/posts/imitate_button_in_pigcoming/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>猪来了中转盘的按钮十分带感，有一种3D的效果，而实际上是伪3D，且实现起来十分容易，本篇文章就记录一下如何实现这个按钮的效果。</p>
+<a id="more"></a>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>首先解压猪来了的ipa包，从里面找出它的资源文件，然后发现了很多类似于下面的图片资源：</p>
+<p><img src="/posts/imitate_button_in_pigcoming/1.png" alt="1"></p>
+<p>从这张图中我们可以很明显的看出这个按钮的实现方式，底座图片共有两张，大的那张放在下面，小的那张盖在button的上面，然后让button做上下的移动，然后就能做出类似的效果，下面是张效果图：</p>
+<p><img src="/posts/imitate_button_in_pigcoming/2.gif" alt="2"></p>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>由于本人文笔比较差，大家可以跳过我的介绍直接下载我的<a href="https://github.com/948080952/DPSpinButton">Demo</a><br>我这里还是简单说一下具体的代码实现：</p>
+<p>首先重写View的两个方法，检测手指的按下和抬起，并用一个变量来记录Touch的状态    </p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">- (<span class="keyword">void</span>)touchesBegan:(<span class="built_in">NSSet</span>&lt;<span class="built_in">UITouch</span> *&gt; *)touches withEvent:(<span class="keyword">nullable</span> <span class="built_in">UIEvent</span> *)event &#123;</div><div class="line">    </div><div class="line">    <span class="keyword">self</span>.touchState = TouchStatePress;</div><div class="line">    [<span class="keyword">self</span> playPressAnimationAndCallDelegate];</div><div class="line">    </div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)touchesEnded:(<span class="built_in">NSSet</span>&lt;<span class="built_in">UITouch</span> *&gt; *)touches withEvent:(<span class="keyword">nullable</span> <span class="built_in">UIEvent</span> *)event &#123;</div><div class="line">    </div><div class="line">    <span class="keyword">self</span>.touchState = TouchStateFree;</div><div class="line">    [<span class="keyword">self</span> playFreeAnimationAndCallDelegate];</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>然后我们看一下核心的两个方法<code>playPressAnimationAndCallDelegate</code>和<code>playFreeAnimationAndCallDelegate</code>，这里只分析第一个方法。开始先判断当前是否有动画在进行，如果是直接返回。然后判断当前转盘的状态，如果是free状态，则播放完全按下的动画，在动画结束的回掉中，更新button的状态，此时要注意的是去检查Touch的状态，如果如果是松开的状态，那还要去调用<code>playFreeAnimationAndCallDelegate</code>，在动画block外，根据转盘的状态决定是否通知代理。    </p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">- (<span class="keyword">void</span>)playPressAnimationAndCallDelegate &#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.animated) &#123;</div><div class="line">        <span class="keyword">return</span> ;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">self</span>.animated = <span class="literal">YES</span>;</div><div class="line">    <span class="built_in">CGFloat</span> height = <span class="keyword">self</span>.frame.size.height;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.spinState == SpinStateFree) &#123;</div><div class="line">        [<span class="built_in">UIView</span> animateWithDuration:<span class="number">0.08</span> animations:^&#123;</div><div class="line">            <span class="keyword">self</span>.button.frame = <span class="built_in">CGRectMake</span>(<span class="number">0</span>, height / <span class="number">16</span>, <span class="keyword">self</span>.button.frame.size.width, <span class="keyword">self</span>.button.frame.size.height);</div><div class="line">        &#125; completion:^(<span class="built_in">BOOL</span> finished) &#123;</div><div class="line">            <span class="keyword">self</span>.button.frame = <span class="built_in">CGRectMake</span>(<span class="number">0</span>, height / <span class="number">16</span>, <span class="keyword">self</span>.button.frame.size.width, <span class="keyword">self</span>.button.frame.size.height);</div><div class="line">            <span class="keyword">self</span>.animated = <span class="literal">NO</span>;</div><div class="line">            <span class="keyword">self</span>.buttonState = ButtonStateLow;</div><div class="line">            <span class="keyword">if</span> (<span class="keyword">self</span>.touchState == TouchStateFree) &#123;</div><div class="line">                [<span class="keyword">self</span> playFreeAnimationAndCallDelegate];</div><div class="line">            &#125;</div><div class="line">        &#125;];</div><div class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">self</span>.spinState == SpinStateBusy) &#123;</div><div class="line">        [<span class="built_in">UIView</span> animateWithDuration:<span class="number">0.05</span> animations:^&#123;</div><div class="line">            <span class="keyword">self</span>.button.frame = <span class="built_in">CGRectMake</span>(<span class="number">0</span>, height / <span class="number">60</span>, <span class="keyword">self</span>.button.frame.size.width, <span class="keyword">self</span>.button.frame.size.height);</div><div class="line">        &#125; completion:^(<span class="built_in">BOOL</span> finished) &#123;</div><div class="line">            <span class="keyword">self</span>.button.frame = <span class="built_in">CGRectMake</span>(<span class="number">0</span>, height / <span class="number">60</span>, <span class="keyword">self</span>.button.frame.size.width, <span class="keyword">self</span>.button.frame.size.height);</div><div class="line">            <span class="keyword">self</span>.animated = <span class="literal">NO</span>;</div><div class="line">            <span class="keyword">self</span>.buttonState = ButtonStateMid;</div><div class="line">            <span class="keyword">if</span> (<span class="keyword">self</span>.touchState == TouchStateFree) &#123;</div><div class="line">                [<span class="keyword">self</span> playFreeAnimationAndCallDelegate];</div><div class="line">            &#125;</div><div class="line">        &#125;];</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.spinState == SpinStateFree) &#123;</div><div class="line">        <span class="keyword">if</span> (<span class="keyword">self</span>.delegate &amp;&amp; [<span class="keyword">self</span>.delegate respondsToSelector:<span class="keyword">@selector</span>(giftSpinButtonDidPress:)]) &#123;</div><div class="line">            [<span class="keyword">self</span>.delegate giftSpinButtonDidPress:<span class="keyword">self</span>];</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>最后我们看一下唯一的一个接口的实现，首先记录转盘的状态，这里要注意如果转盘状态变为free而button是被按下的，我们要再次播放动画并通知代理（这里应对的情况是如果能一直按着这个按钮，当转盘停下来时是会继续转的）。    </p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">- (<span class="keyword">void</span>)spinStateChangeTo:(SpinState)state &#123;</div><div class="line">    <span class="keyword">self</span>.spinState = state;</div><div class="line">    <span class="keyword">if</span> (state == SpinStateFree &amp;&amp; <span class="keyword">self</span>.touchState == TouchStatePress) &#123;</div><div class="line">        <span class="keyword">if</span> (<span class="keyword">self</span>.buttonState == ButtonStateMid) &#123;</div><div class="line">            [<span class="keyword">self</span> playPressAnimationAndCallDelegate];</div><div class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">self</span>.buttonState == ButtonStateLow) &#123;</div><div class="line">            <span class="keyword">if</span> (<span class="keyword">self</span>.delegate &amp;&amp; [<span class="keyword">self</span>.delegate respondsToSelector:<span class="keyword">@selector</span>(giftSpinButtonDidPress:)]) &#123;</div><div class="line">                [<span class="keyword">self</span>.delegate giftSpinButtonDidPress:<span class="keyword">self</span>];</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>说完实现，说一下这个View该如果使用。在VC中实例化这个View，并将其代理设为这个VC，这里要注意的一点是一般情况下是要在<code>-giftSpinButtonDidPress:</code>的代理方法中调用<code>spinStateChangeTo:</code>方法的，因为按下后转盘转起来按钮就按不下去了。    </p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">- (<span class="keyword">void</span>)giftSpinButtonDidPress:(DPSpinButton *)giftSpinButton &#123;</div><div class="line">    </div><div class="line">    ...</div><div class="line">    </div><div class="line">    [giftSpinButton spinStateChangeTo:SpinStateBusy];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>其实很简单的代码，但是实现的效果却很赞！<br>​<br>（本文结束^_^）</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/file_lost_in_xcode/" rel="next" title="Xcode项目文件丢失">
+                <i class="fa fa-chevron-left"></i> Xcode项目文件丢失
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/source_code_analysis_of_masonry/" rel="prev" title="Masonry源码分析">
+                Masonry源码分析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/daipei.jpg"
+               alt="DaiPei" />
+          <p class="site-author-name" itemprop="name">DaiPei</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">tags</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正文"><span class="nav-number">2.</span> <span class="nav-text">正文</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实现"><span class="nav-number">2.1.</span> <span class="nav-text">实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用"><span class="nav-number">2.2.</span> <span class="nav-text">使用</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">DaiPei</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "b24ff215c66d4c03bc1702fbdff177d3",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

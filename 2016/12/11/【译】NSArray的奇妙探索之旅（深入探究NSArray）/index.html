@@ -1,0 +1,900 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="本文翻译自The Amazing Adventures of NSArray
+
+译者注：原文对NSArray进行了深入的探究，挖掘了许多令人不可思议的东西，但也有那么些错误的地方（当然只是现在运行起来会出问题），在文中我会指出。
+
+首先我们用两行奇怪的代码开始这篇文章。
+12[[NSArray alloc] isKindOfClass:[NSMutableArray class]];[[NSMut">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【译】NSArray的奇妙探索之旅（深入探究NSArray）">
+<meta property="og:url" content="https://948080952.github.io/2016/12/11/【译】NSArray的奇妙探索之旅（深入探究NSArray）/index.html">
+<meta property="og:site_name" content="DaiPei's Blog">
+<meta property="og:description" content="本文翻译自The Amazing Adventures of NSArray
+
+译者注：原文对NSArray进行了深入的探究，挖掘了许多令人不可思议的东西，但也有那么些错误的地方（当然只是现在运行起来会出问题），在文中我会指出。
+
+首先我们用两行奇怪的代码开始这篇文章。
+12[[NSArray alloc] isKindOfClass:[NSMutableArray class]];[[NSMut">
+<meta property="og:updated_time" content="2017-03-02T00:14:45.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【译】NSArray的奇妙探索之旅（深入探究NSArray）">
+<meta name="twitter:description" content="本文翻译自The Amazing Adventures of NSArray
+
+译者注：原文对NSArray进行了深入的探究，挖掘了许多令人不可思议的东西，但也有那么些错误的地方（当然只是现在运行起来会出问题），在文中我会指出。
+
+首先我们用两行奇怪的代码开始这篇文章。
+12[[NSArray alloc] isKindOfClass:[NSMutableArray class]];[[NSMut">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://948080952.github.io/2016/12/11/【译】NSArray的奇妙探索之旅（深入探究NSArray）/"/>
+
+
+
+
+
+  <title> 【译】NSArray的奇妙探索之旅（深入探究NSArray） | DaiPei's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">DaiPei's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle"></p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://948080952.github.io/2016/12/11/【译】NSArray的奇妙探索之旅（深入探究NSArray）/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="DaiPei">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/daipei.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="DaiPei's Blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="DaiPei's Blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                【译】NSArray的奇妙探索之旅（深入探究NSArray）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-11T00:37:24+08:00">
+                2016-12-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/12/11/【译】NSArray的奇妙探索之旅（深入探究NSArray）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/11/【译】NSArray的奇妙探索之旅（深入探究NSArray）/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2016/12/11/【译】NSArray的奇妙探索之旅（深入探究NSArray）/" class="leancloud_visitors" data-flag-title="【译】NSArray的奇妙探索之旅（深入探究NSArray）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文翻译自<a href="http://arigrant.com/blog/2014/1/19/adventures-in-the-land-of-nsarray">The Amazing Adventures of NSArray</a></p>
+<blockquote>
+<p>译者注：原文对NSArray进行了深入的探究，挖掘了许多令人不可思议的东西，但也有那么些错误的地方（当然只是现在运行起来会出问题），在文中我会指出。</p>
+</blockquote>
+<p>首先我们用两行奇怪的代码开始这篇文章。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[[NSArray alloc] isKindOfClass:[NSMutableArray class]];</div><div class="line">[[NSMutableArray alloc] isKindOfClass:[NSArray class]];</div></pre></td></tr></table></figure>
+<p>事实证明上面两行的返回值都是真。没事请放松，但是准备一个篮子防止你的脑子发生泄露，这比疯狂还要疯狂。</p>
+<a id="more"></a>
+<h2 id="先看看Foundation"><a href="#先看看Foundation" class="headerlink" title="先看看Foundation"></a>先看看Foundation</h2><p>跟其他许多语言相比，Objective-C真的是简单时髦。它的句法实际上很简单，很多模式的实现都耍了一些花招（重新看看上面的两行代码）。但是通过深入的研究探索那些苹果实现的类，比较容易洞悉一些更加通常的模式和一些花招，这些模式和花招可能在一开始会让你觉得有些奇怪。<br><br><br>我们仅仅研究NSArray, NSNumber, NSString, NSDictionary, and NSObject（或者说Foundation）,就将发现无数令人感兴趣的，具有指导意义的，有乐趣的东西。为了这个目的，我们将聚焦NSArray中的那些很”傻逼”的东西。本篇文章我们将探索下面这些东西：</p>
+<ul>
+<li>字面量的句法</li>
+<li>下标</li>
+<li>类簇</li>
+<li>免费桥</li>
+<li>索引的成员变量</li>
+</ul>
+<h2 id="字面量"><a href="#字面量" class="headerlink" title="字面量"></a>字面量</h2><p>字面量是理解NSArray相关东西最简单的魔法，对于Objective-C来说是相对新的东西，<a href="http://clang.llvm.org/docs/ObjectiveCLiterals.html#container-literals">在clang3.5中被加入</a>，这种句法相当简单：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">NSArray *a = @[ foo, bar, baz ];</div></pre></td></tr></table></figure>
+<p>其实就是逐字翻译成下面的代码，以遵从数组的构建：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">id objects[] = &#123; foo, bar, baz &#125;;</div><div class="line">NSArray *a = [[NSArray alloc] initWithObjects:objects count:3];</div></pre></td></tr></table></figure>
+<p>不幸的是没有钩子（hooks）让我们去利用这种句法。它仅仅对于NSArray和NSDictionary等可用，所以在这方面没有太多能探究的。</p>
+<h2 id="下标"><a href="#下标" class="headerlink" title="下标"></a>下标</h2><p>Clang3.5同样提供了<a href="http://clang.llvm.org/docs/ObjectiveCLiterals.html#object-subscripting">方括号下标的支持</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">IndexedContainer *ic = ...;</div><div class="line">ic[3] = @&quot;foo&quot;;</div><div class="line">id obj0 = ic[5];</div><div class="line"></div><div class="line">KeyedContainer *kc = ...;</div><div class="line">kc[@&quot;qux&quot;] = @&quot;bar&quot;;</div><div class="line">id obj1 = kc[@&quot;bazzle&quot;];</div></pre></td></tr></table></figure>
+<p>这其实很简单，仅仅是依据下标进行了一个简单的转换，这个下标可以是整数类型（indexed）也可以是一个对象（keyed）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">IndexedContainer *ic = ...;</div><div class="line">[ic setObject:@&quot;foo&quot; atIndexedSubscript:3];</div><div class="line">id obj0 = [ic objectAtIndexedSubscript:5];</div><div class="line"></div><div class="line">KeyedContainer *kc = ...;</div><div class="line">[kc setObject:@&quot;bar&quot; forKeyedSubscript:@&quot;qux&quot;];</div><div class="line">id obj1 = [kc objectForKeyedSubscript:5];</div></pre></td></tr></table></figure>
+<p>这种代码虽然和以前相同，但是却更容易阅读。感谢NSArray和NSDictionary满足我们的期待实现了这些方法，如此事物突然变得很美好。</p>
+<h2 id="把内存当成一个连续的数组"><a href="#把内存当成一个连续的数组" class="headerlink" title="把内存当成一个连续的数组"></a>把内存当成一个连续的数组</h2><p>我们构建一个简单的数组。（注意下面所有的代码都是在64位系统上编译运行，不过用iOS或OS X都可以）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">NSArray *array = @[ @&quot;one&quot;, @&quot;two&quot;, @&quot;three&quot; ];</div></pre></td></tr></table></figure>
+<p>我们得到的对象实际上只是一个指向一块内存的指针（用星号来标记），通常我们认为一个指针性的Objective-C对象就是一个实现的细节，但是猜测其指向的那块内存的组成很有意思。我们先从这块内存的大小入手。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#import &lt;objc/runtime.h&gt;</div><div class="line"></div><div class="line">NSLog(@&quot;%lu&quot;, class_getInstanceSize([array class]);</div><div class="line"></div><div class="line">&gt; 16</div></pre></td></tr></table></figure>
+<p>很好，这块内存有16个字节。像其他任何OC对象一样，最开始的8个字节是isa指针，所以只有8个字节值得我们探索。在这8个字节中，我们希望能够找到一些和数组结构相关的信息（例如数组长度或是一些对象的指针或是其他一些类似的东西）。</p>
+<p>我们看看isa指针后面的8个字节是否是一个指针或是一些内置的数据结构例如盛装数组内容的缓冲。（如果你不确定为何要进行bridge转换，你或许需要看看我写的另一篇文章<a href="http://arigrant.com/blog/2013/10/27/crossing-the-bridge-to-objective-c-arc">Objective-C ARC</a>）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">char *bytes = (char *)(__bridge void *)array;</div><div class="line">    </div><div class="line">NSLog(@&quot;%x&quot;, *(uint64_t *)(bytes + 8));</div><div class="line"></div><div class="line">&gt; 3</div></pre></td></tr></table></figure>
+<p>情形很乐观，我们使用的数组的长度正好是3，但这可能是个巧合，我们来试试其他数组的长度。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">char *bytesArrayLen4 = (char *)(__bridge void *)@[ @1, @2, @3, @4 ];</div><div class="line">NSLog(@&quot;%x&quot;, *(uint64_t *)(bytesArrayLen4 + 8));</div><div class="line"></div><div class="line">char *bytesArrayLen7 = (char *)(__bridge void *)@[ @1, @2, @3, @4, @5, @6, @7 ];</div><div class="line">NSLog(@&quot;%x&quot;, *(uint64_t *)(bytesArrayLen7 + 8));</div><div class="line"></div><div class="line">&gt; 4</div><div class="line">&gt; 7</div></pre></td></tr></table></figure>
+<p>完美，我们发现了数组的长度！但是可能长度不是存在全部的8个字节中而是仅仅用了开始的4个字节。所以我们来打印一下第12到15字节，一个4字节的整型。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">NSLog(@&quot;%x&quot;, *(uint32_t *)(bytes + 12));</div><div class="line"></div><div class="line">&gt; 0</div></pre></td></tr></table></figure>
+<p>很不幸，从打印结果我们看不出什么，也许这写比特没被使用，也许长度真的储存在64位的内存里。</p>
+<h2 id="寻找余下的对象"><a href="#寻找余下的对象" class="headerlink" title="寻找余下的对象"></a>寻找余下的对象</h2><p>无论如何，我们发现了一个严重的问题。在那16字节的内存里储存了isa指针、数组的长度，仅此而已。那么数组里的对象到底在哪里？</p>
+<p>也许有一个全局的map储存着数组地址和数组内容的映射。然而如果是那样的话我将停止探索这极度愚蠢的设计。幸运的是不是那样。让我们回忆一下，我们使用<code>class_getInstanceSize</code>得到数组实例的大小，但如果实际大小更大呢，我们看看这个数组所占的空间到底有多大而不是猜测。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#import &lt;malloc/malloc.h&gt;</div><div class="line"></div><div class="line">NSLog(@&quot;%lu&quot;, malloc_size(bytes));</div><div class="line"></div><div class="line">&gt; 48</div></pre></td></tr></table></figure>
+<p>什么鬼？这个类的实例应该只有16字节，这额外的32字节是从哪里来的，我们先跳过这个问题，看看这32字节里有什么。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">NSLog(@&quot;%@&quot;, *(uint64_t *)(bytes + 16));</div><div class="line">NSLog(@&quot;%@&quot;, *(uint64_t *)(bytes + 24));</div><div class="line">NSLog(@&quot;%@&quot;, *(uint64_t *)(bytes + 32));</div><div class="line">NSLog(@&quot;%@&quot;, *(uint64_t *)(bytes + 40));</div><div class="line"></div><div class="line">&gt; one</div><div class="line">&gt; two</div><div class="line">&gt; three</div><div class="line">&gt; (null)</div></pre></td></tr></table></figure>
+<blockquote>
+<p>译者注：原文的代码有些问题，是强转为uint32_t然后打印，但是运行的时候会出错，在64位系统中oc对象的地址也应该是64位的，这里明显是有问题的，我开始还以为原作者使用的环境是32位，后来发现他在文章开头就注明使用的环境是64位，所以这里应该是弄错了。</p>
+</blockquote>
+<p>这是和NSArray内存布局等价的结构体。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">struct MyArray &#123;</div><div class="line">  Class isa;</div><div class="line">  uint64_t length;</div><div class="line">  id object0;</div><div class="line">  id object1;</div><div class="line">  id object2;</div><div class="line">  ...</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h2 id="实例的内存分配"><a href="#实例的内存分配" class="headerlink" title="实例的内存分配"></a>实例的内存分配</h2><p>既然我们已经明白了内存布局，下面我们需要搞明白为什么一开始得到的内存是16字节。不论是谁做的分配工作很明显不可能只使用了<code>class_getInstanceSize</code>。有一块内存在后来被加在了最后。我们需要去翻翻<objc/runtime.h>，这是我最喜欢的头文件。</p>
+<p>在这个头文件中似乎只有一个用于创建实例的方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">id class_createInstance(Class cls, size_t extraBytes)</div></pre></td></tr></table></figure>
+<p>这个方法允许你定义一个数字表示在对象的最后开辟额外空间的大小。设置一个符号断点在这个函数上，从LLDB中可以看到extraBytes这个参数总是n*sizeof(id)，至此这其中神秘的面纱就被揭开了。同时也有一个方法用于获取这个额外内存的地址，下面看一下具体用法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">//Compiled with MRR (-fno-objc-arc)</div><div class="line">// object_getIndexedIvars is not available in ARC.</div><div class="line"></div><div class="line">NSArray *array = @[ @&quot;one&quot;, @&quot;two&quot;, @&quot;three&quot; ];</div><div class="line"></div><div class="line">void *indexedIvars = object_getIndexedIvars(array);</div><div class="line"></div><div class="line">NSLog(@&quot;%@&quot;, *(id *)(indexedIvars + 0));</div><div class="line">NSLog(@&quot;%@&quot;, *(id *)(indexedIvars + 8));</div><div class="line">NSLog(@&quot;%@&quot;, *(id *)(indexedIvars + 16));</div><div class="line"></div><div class="line">&gt; one</div><div class="line">&gt; two</div><div class="line">&gt; three</div></pre></td></tr></table></figure>
+<p>突然之间一切都明朗起来，我们弄清楚了NSArray的内存布局。似乎没有什么令人疑惑的东西遗留下来了，但是仔细想想<code>class_getInstanceSize</code>是什么时候被调用的呢。</p>
+<p>我们直接使用alloc-init方法而不是用字面量进行实例化操作，这样我们就能弄清楚发生了什么。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">id objects[] = &#123; @&quot;one&quot;, @&quot;two&quot;, @&quot;three&quot; &#125;;</div><div class="line">NSArray *a = [[NSArray alloc] initWithObjects:objects count:3];</div></pre></td></tr></table></figure>
+<p>在调用alloc时使用的是<code>class_getInstanceSize</code>方法返回的值，但是如何知道到底要分配多大的内存？关于这个数组有多大的信息直到init方法调用时才出现。</p>
+<p>有一种可能是init方法释放了一开始分配的内存然后又重新分配了一段正确的内存（可以看看<a href="http://arigrant.com/blog/2014/1/7/an-aside-on-inits-consumption-of-self">An Aside on Init’s Consumption of Self</a>去弄明白为什么这在语义上是可能的），如果是这样做的那真是太浪费了。</p>
+<p>我们先看看alloc方法返回的对象。我们要再一次使用MRR因为ARC不允许你单独使用alloc方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">//Compiled with MRR (-fno-objc-arc)</div><div class="line">NSArray *array = [NSArray alloc];</div><div class="line">NSLog(@&quot;%lu&quot;, malloc_size(array));</div><div class="line"></div><div class="line">id objects[] = &#123; @&quot;one&quot;, @&quot;two&quot;, @&quot;three&quot; &#125;;</div><div class="line">array = [array initWithObjects:objects count:3];</div><div class="line"></div><div class="line">NSLog(@&quot;%lu&quot;, malloc_size(array));</div><div class="line"></div><div class="line">&gt; 16</div><div class="line">&gt; 48</div></pre></td></tr></table></figure>
+<p>毫无疑问init方法返回了一块新内存。多么浪费。。。:(也许alloc返回的是一些有用的东西这样就不会产生浪费了。</p>
+<blockquote>
+<p>译者注：作者在这里强调浪费，应该是为了引出下一节的内容，先抑后扬的手法吧</p>
+</blockquote>
+<h2 id="类簇-amp-alloc返回的工厂类"><a href="#类簇-amp-alloc返回的工厂类" class="headerlink" title="类簇&amp;alloc返回的工厂类"></a>类簇&amp;alloc返回的工厂类</h2><p>alloc方法在被实现的时候暗中返回了一个工厂类（我们想的是这是一个全局的单例）。然后实现工厂类的init方法返回你所需要的一个新的对象。这就是NSArray所做的事情。每次你调用NSArray的alloc方法，它都会返回一个NSPlaceholderArray的全局实例，可以说是数组的魔法工厂。</p>
+<p>alloc返回一个工厂的技巧是十分普遍的。它允许你推迟一切分配的工作直到init方法调用你有了全部的信息去构建你所需要的实例。如此你就可以耍一些花招例如在一个实例后增加一些额外的字节，或是选择特定的子类去实例化。</p>
+<p>这种使用工厂类去实例化一个特定子类的模式叫做类簇。你可以任性的将一个抽象类的接口用在任何子类上。</p>
+<ul>
+<li>NSString是最适合用来实例化底层字符的类簇。</li>
+<li>NSNumber是一个返回全局单例（例如@YES和@NO）、标签指针或是CFNumber的类簇。</li>
+<li>NSDictionary和其他容器的类也是类簇。</li>
+</ul>
+<p>类簇的一个最基本的概念是你不可能真正获取一个抽象基础类的实例，而是一些私有的子类。在前面的例子中，这个子类是__NSArrayI，用于替代NSArray的子类。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">NSLog(@&quot;%@&quot;, [@[ @&quot;one&quot;, @&quot;two&quot;, @&quot;three&quot; ] class]);</div><div class="line"></div><div class="line">&gt; __NSArrayI</div></pre></td></tr></table></figure>
+<p>事实上在Foundation框架中有超过20个这样的NSArray的子类。真是一个好大的类簇。😀</p>
+<blockquote>
+<p>超过20个真的很多，不知道作者是如何得到这个值的，可能是一样一样试出来的吧！真是厉害了，其实我也发现了几个这样的类比如：<strong>NSPlaceholderArray、 </strong>NSSingleObjectArrayI。</p>
+</blockquote>
+<h2 id="NSPlaceholderArray"><a href="#NSPlaceholderArray" class="headerlink" title="NSPlaceholderArray"></a>NSPlaceholderArray</h2><p>现在我们已经知道NSArray的alloc方法返回一个工厂，在深入探究这个工厂对象也是很值得的。很明显这个工厂包含所有的init方法（因为它使用这些方法来进行实例化）但具体是怎样的呢？</p>
+<p>嗯，它绝对是一个NSArray，从alloc函数返回的东西不会太不着调。因此假设NSPlaceholderArray是NSArray的子类是很正常的，</p>
+<p>NSMutableArray的alloc方法也是返回一个NSPlaceholderArray的单例（尽管和前面的不是同一个），这意味着NSPlaceholderArray也一定是NSMutableArray的子类。他们继承关系如下：</p>
+<p>NSArray &lt;- NSMutableArray &lt;- NSPlaceholderArray</p>
+<p>这导致下面两行返回值都是真</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[[NSArray alloc] isKindOfClass:[NSMutableArray class]];</div><div class="line">[[NSMutableArray alloc] isKindOfClass:[NSArray class]];</div></pre></td></tr></table></figure>
+<p>下面两行也是一样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[[NSNumber alloc] isKindOfClass:[NSValue class]];</div><div class="line">[[NSValue alloc] isKindOfClass:[NSNumber class]];</div></pre></td></tr></table></figure>
+<p>因为NSNumber和NSValue都是返回同一个工厂的类簇，他们的继承关系如下：</p>
+<p>NSValue &lt;- NSNumber &lt;- NSPlaceholderValue &lt;- NSPlaceholderNumber</p>
+<p>如果你仔细观察你会发现NSValue的alloc返回的是NSNumber的子类，所以我们能不能用NSPlaceholerValue去实例化一个NSNumber？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">NSLog(@&quot;%@&quot;, [(id)[NSValue alloc] initWithInt:8]);</div><div class="line"></div><div class="line">&gt; *** Terminating app due to uncaught exception &apos;NSInvalidArgumentException&apos;,</div><div class="line">reason: &apos;*** initialization method -initWithInt: cannot be sent to an abstract</div><div class="line">object of class NSPlaceholderValue: Create a concrete instance!&apos;</div></pre></td></tr></table></figure>
+<p>好吧！这家伙比我们想象中聪明。</p>
+<h2 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h2><p>希望你享受这对于OC类内部不寻常实现的探索。深入苹果的类揭示了许多常见和不常见的花招。研究他们不仅仅是乐趣还能帮助我们更好的理解这门语言究竟是怎样的。如果这些改变了你写的代码，我很乐意知道同在一片星空下的你正在做什么。但至少你自己是知道的。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/11/27/Foundation对象与Core-Foundation对象间的转换：Toll-Free-Birdge/" rel="next" title="Foundation对象与Core Foundation对象间的转换：Toll-Free Birdge">
+                <i class="fa fa-chevron-left"></i> Foundation对象与Core Foundation对象间的转换：Toll-Free Birdge
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/12/17/iOS开发中的横屏问题/" rel="prev" title="iOS开发中的横屏问题">
+                iOS开发中的横屏问题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/12/11/【译】NSArray的奇妙探索之旅（深入探究NSArray）/"
+           data-title="【译】NSArray的奇妙探索之旅（深入探究NSArray）" data-url="https://948080952.github.io/2016/12/11/【译】NSArray的奇妙探索之旅（深入探究NSArray）/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/daipei.jpg"
+               alt="DaiPei" />
+          <p class="site-author-name" itemprop="name">DaiPei</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">tags</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#先看看Foundation"><span class="nav-number">1.</span> <span class="nav-text">先看看Foundation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字面量"><span class="nav-number">2.</span> <span class="nav-text">字面量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下标"><span class="nav-number">3.</span> <span class="nav-text">下标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#把内存当成一个连续的数组"><span class="nav-number">4.</span> <span class="nav-text">把内存当成一个连续的数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#寻找余下的对象"><span class="nav-number">5.</span> <span class="nav-text">寻找余下的对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实例的内存分配"><span class="nav-number">6.</span> <span class="nav-text">实例的内存分配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类簇-amp-alloc返回的工厂类"><span class="nav-number">7.</span> <span class="nav-text">类簇&alloc返回的工厂类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSPlaceholderArray"><span class="nav-number">8.</span> <span class="nav-text">NSPlaceholderArray</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结束"><span class="nav-number">9.</span> <span class="nav-text">结束</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">DaiPei</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"daipeihust"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("k7SCWO7enmjJUQxF9flaCnHq-gzGzoHsz", "IlP5u7eyCCGxtCqiz65lvLCy");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+
+</body>
+</html>

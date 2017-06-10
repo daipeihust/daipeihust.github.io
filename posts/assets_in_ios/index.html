@@ -1,0 +1,729 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="写在前面在iOS开发中，最终项目的大小跟项目中的图片关系很大，因为代码的大小是很小的，可以说影响最终项目大小的主要就是项目中的图片资源，所以如何组织项目中的图片资源显得尤为重要。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS开发中的Assets.xcassets和Assets.car">
+<meta property="og:url" content="https://948080952.github.io/posts/assets_in_ios/index.html">
+<meta property="og:site_name" content="DaiPei's Blog">
+<meta property="og:description" content="写在前面在iOS开发中，最终项目的大小跟项目中的图片关系很大，因为代码的大小是很小的，可以说影响最终项目大小的主要就是项目中的图片资源，所以如何组织项目中的图片资源显得尤为重要。">
+<meta property="og:image" content="https://948080952.github.io/posts/assets_in_ios/1.png">
+<meta property="og:image" content="https://948080952.github.io/posts/assets_in_ios/2.png">
+<meta property="og:image" content="https://948080952.github.io/posts/assets_in_ios/3.png">
+<meta property="og:image" content="https://948080952.github.io/posts/assets_in_ios/4.png">
+<meta property="og:updated_time" content="2017-06-10T05:46:01.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS开发中的Assets.xcassets和Assets.car">
+<meta name="twitter:description" content="写在前面在iOS开发中，最终项目的大小跟项目中的图片关系很大，因为代码的大小是很小的，可以说影响最终项目大小的主要就是项目中的图片资源，所以如何组织项目中的图片资源显得尤为重要。">
+<meta name="twitter:image" content="https://948080952.github.io/posts/assets_in_ios/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://948080952.github.io/posts/assets_in_ios/"/>
+
+
+
+
+
+  <title>iOS开发中的Assets.xcassets和Assets.car | DaiPei's Blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DaiPei's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            Commonweal 404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://948080952.github.io/posts/assets_in_ios/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DaiPei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/daipei.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DaiPei's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">iOS开发中的Assets.xcassets和Assets.car</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-13T21:58:09+08:00">
+                2016-11-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/posts/assets_in_ios/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>在iOS开发中，最终项目的大小跟项目中的图片关系很大，因为代码的大小是很小的，可以说影响最终项目大小的主要就是项目中的图片资源，所以如何组织项目中的图片资源显得尤为重要。</p>
+<a id="more"></a>
+<h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><h2 id="Assets-xcassets文件"><a href="#Assets-xcassets文件" class="headerlink" title="Assets.xcassets文件"></a>Assets.xcassets文件</h2><p>当你创建一个空项目时，会默认帮你生成一个Assets.xcassets文件，当然你也可以自己创建：</p>
+<img src="/posts/assets_in_ios/1.png" alt="1.png" title="">
+<p>如果没有特殊的需求，一个工程里有一个xcassets文件就可以了，项目中所有图片都可以放在里面，为了组织更有条理更清晰，可以在这里面用文件夹分类，可以按照功能的模块来分类，比如一个模块的功能放在一个文件夹中。</p>
+<img src="/posts/assets_in_ios/2.png" alt="2.png" title="">
+<p>在这个文件中默认会有一个AppIcon的文件，可以将相对应大小的应用图标直接拖到右边对应大小的地方，就可以了。处理AppIcon这里面还可以放LaunchImage，只要在这个AppIcon这个栏内右键新建即可，还可以针对不同设备新建不同的LaunchImage和AppIcon</p>
+<img src="/posts/assets_in_ios/3.png" alt="3.png" title="">
+<p>如果只想往项目里加入一张普通的图片，就选择New Image Set，这个Image Set实质就是一个文件夹，里面包括不同分辨率的图片和一个Contents.json文件，内容如下包含着这个图片集中图片文件的基本信息，同AppIcon一样，只要将自己的图片拖到相应的位置即可，然后在项目中使用<code>imageNamed:</code>方法时，使用的名字是这个Image Set的名字，而不是图片真实的名字，这里可以注意的是图片真实的名字虽然无所谓，但最好还是按照一些规律来，最好不要出现中文，而Image Set的名字可以定义一些规则：如用image开头，中间加上模块名，最后加上图片本身的名字，中间用下划线连接，当然这里只是我个人的提议，我们项目中图片就是用这种方式进行命名的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  &quot;images&quot; : [</div><div class="line">    &#123;</div><div class="line">      &quot;idiom&quot; : &quot;universal&quot;,</div><div class="line">      &quot;filename&quot; : &quot;sPECIALOFFERIconSurvey1.png&quot;,</div><div class="line">      &quot;scale&quot; : &quot;1x&quot;</div><div class="line">    &#125;,</div><div class="line">    &#123;</div><div class="line">      &quot;idiom&quot; : &quot;universal&quot;,</div><div class="line">      &quot;filename&quot; : &quot;sPECIALOFFERIconSurvey1@2x.png&quot;,</div><div class="line">      &quot;scale&quot; : &quot;2x&quot;</div><div class="line">    &#125;,</div><div class="line">    &#123;</div><div class="line">      &quot;idiom&quot; : &quot;universal&quot;,</div><div class="line">      &quot;filename&quot; : &quot;sPECIALOFFERIconSurvey1@3x.png&quot;,</div><div class="line">      &quot;scale&quot; : &quot;3x&quot;</div><div class="line">    &#125;</div><div class="line">  ],</div><div class="line">  &quot;info&quot; : &#123;</div><div class="line">    &quot;version&quot; : 1,</div><div class="line">    &quot;author&quot; : &quot;xcode&quot;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>将图片放在xcassets文件中的好处：</p>
+<ul>
+<li>组织清晰</li>
+<li>不同功用的图片有专门的格式</li>
+<li>不同分辨率的图片好管理</li>
+<li>工程打包后会对图片进行压缩</li>
+</ul>
+<p>这里我要着重说一下第四点，包的大小，如果将图片直接放在工程目录下面，项目打包后图片文件也是散落在包里面，而且不会对图片进行压缩，而如果放在xcassets中，在打包后会将这些图片（除了AppIcon和LaunchImage，这两种图片是直接放在包中的）统一压缩成一个Assets.car的文件，大大减小包的大小，具体是几倍的关系我记不清了，但是相当的可观。</p>
+<h2 id="Assets-car文件"><a href="#Assets-car文件" class="headerlink" title="Assets.car文件"></a>Assets.car文件</h2><p>说完Assets.xcassets，那么说说由它生成的Assets.car文件，这个文件是一种压缩文件。<br>我们在开发过程中肯定会遇到一种情况就是把一个ipa的包解压出来看看里面有哪些图片，不管是不是自己的项目，总可能会有这种需求，那如果图片都在Assets.car中该怎么获取呢，直接解压是不行的，这时候就需要用到一个命令行工具叫cartool，这是一个开源软件，可以从github下载，这里给出github地址：<a href="https://github.com/steventroughtonsmith/cartool" title="https://github.com/steventroughtonsmith/cartool">https://github.com/steventroughtonsmith/cartool</a></p>
+<p>使用方法是cartool Assets.car outputDirectory</p>
+<p>还是给大家上一张图</p>
+<img src="/posts/assets_in_ios/4.png" alt="4.png" title="">
+<p>先将ipa解压缩，然后显示app包的内容，将Assets.car复制到桌面，然后就可以像上图一样，当然要在桌面上新建一个文件夹，如果你想直接把图片解压到桌面上我也是不介意的！</p>
+<p>#后记<br>这篇博客大概就是这些内容，主要就是给大家分享这个叫做cartool的工具还有就是科学的组织项目中的图片，当然要感谢大神写出这样方便的工具。</p>
+<p>话说这个月已经过去一半了，然而这是这个月的第一篇博客，还需加油，努力学习，努力写博客，分享知识，分享快乐，每月四篇一定要实现。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/no_reward_ads_optimization/" rel="next" title="ios中生产者模式实例：非激励广告架构的优化过程">
+                <i class="fa fa-chevron-left"></i> ios中生产者模式实例：非激励广告架构的优化过程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/hexstring_in_ios/" rel="prev" title="iOS开发中的HexString">
+                iOS开发中的HexString <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/daipei.jpg"
+               alt="DaiPei" />
+          <p class="site-author-name" itemprop="name">DaiPei</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">tags</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#正文"><span class="nav-number">2.</span> <span class="nav-text">正文</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Assets-xcassets文件"><span class="nav-number">2.1.</span> <span class="nav-text">Assets.xcassets文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Assets-car文件"><span class="nav-number">2.2.</span> <span class="nav-text">Assets.car文件</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">DaiPei</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "b24ff215c66d4c03bc1702fbdff177d3",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,771 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="iOS开发," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="前言最近项目中遇到一个问题，需要使某些界面强制横屏，某些界面只能竖屏，比较难的地方是在于需要横屏的界面的VC是拿不到的，只能通过一些非正常的手段来做到，虽然能够解决，不过却不是非常优雅的方法，但是在探索的过程中却对iOS中的屏幕方向问题有所了解，在这里写篇博客记录下来。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS开发中的横屏问题">
+<meta property="og:url" content="https://948080952.github.io/posts/landscape_problem_in_ios/index.html">
+<meta property="og:site_name" content="DaiPei's Blog">
+<meta property="og:description" content="前言最近项目中遇到一个问题，需要使某些界面强制横屏，某些界面只能竖屏，比较难的地方是在于需要横屏的界面的VC是拿不到的，只能通过一些非正常的手段来做到，虽然能够解决，不过却不是非常优雅的方法，但是在探索的过程中却对iOS中的屏幕方向问题有所了解，在这里写篇博客记录下来。">
+<meta property="og:image" content="https://948080952.github.io/posts/landscape_problem_in_ios/1.png">
+<meta property="og:updated_time" content="2017-06-10T05:45:35.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS开发中的横屏问题">
+<meta name="twitter:description" content="前言最近项目中遇到一个问题，需要使某些界面强制横屏，某些界面只能竖屏，比较难的地方是在于需要横屏的界面的VC是拿不到的，只能通过一些非正常的手段来做到，虽然能够解决，不过却不是非常优雅的方法，但是在探索的过程中却对iOS中的屏幕方向问题有所了解，在这里写篇博客记录下来。">
+<meta name="twitter:image" content="https://948080952.github.io/posts/landscape_problem_in_ios/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://948080952.github.io/posts/landscape_problem_in_ios/"/>
+
+
+
+
+
+  <title>iOS开发中的横屏问题 | DaiPei's Blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DaiPei's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            Commonweal 404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://948080952.github.io/posts/landscape_problem_in_ios/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DaiPei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/daipei.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DaiPei's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">iOS开发中的横屏问题</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-17T02:48:16+08:00">
+                2016-12-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/posts/landscape_problem_in_ios/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近项目中遇到一个问题，需要使某些界面强制横屏，某些界面只能竖屏，比较难的地方是在于需要横屏的界面的VC是拿不到的，只能通过一些非正常的手段来做到，虽然能够解决，不过却不是非常优雅的方法，但是在探索的过程中却对iOS中的屏幕方向问题有所了解，在这里写篇博客记录下来。</p>
+<a id="more"></a>
+<h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><h2 id="横屏概况"><a href="#横屏概况" class="headerlink" title="横屏概况"></a>横屏概况</h2><p>首先说说怎么让界面横屏显示，我觉得可以分为两个方面，一个是主动，一个是被动，主动就是你没有改变手机的方向通过代码改变屏幕的显示方向，被动就是当你弹出或是启动应用时屏幕的方向。</p>
+<ul>
+<li>主动</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[[UIDevice currentDevice] setOrientation: UIInterfaceOrientationLandscapeRight]</div></pre></td></tr></table></figure>
+<p>这是方法以前是公开的，现在已经是私有API了，不过我们仍然可以去使用这个方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">if ([[UIDevice currentDevice] respondsToSelector:@selector(setOrientation:)]) &#123;</div><div class="line">        [[UIDevice currentDevice] performSelector:@selector(setOrientation:)</div><div class="line">                                       withObject:(id)UIInterfaceOrientationLandscapeLeft];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>还有一个方法有些类似，是改变状态栏的方向，这个方法已经不推荐使用了，不过暂时还可以用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationLandscapeLeft animated:YES];</div></pre></td></tr></table></figure>
+<ul>
+<li>被动</li>
+</ul>
+<p>上面的主动的方式如果要能实现必须要有被动的支持，如果没有被动的支持，那些方法调用以后一点效果都没有。</p>
+<p>被动的有分为两个层级，一个是应用级，一个是VC级，我们看一下具体的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window &#123;</div><div class="line">    return UIInterfaceOrientationMaskAll;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这是应用级，如果你这个地方返回的是<code>UIInterfaceOrientationMaskLandscape</code>那么整个应用都只支持横屏，无法竖屏（当然也有例外，这个后面再说），注意这个是<code>UIApplicationDelegate</code>协议中定义的方法，所以这些代码应该写在AppDelegate中。</p>
+<p>当然除了代码我们也可以在工程里进行设置，如下图所示，勾选了全部相当于前面代码中返回<code>UIInterfaceOrientationMaskAll</code>，当然如果一个也不勾那么效果和现在也是相同的，需要注意的是这里的勾选会被上面的代码覆盖，如果两个同时都有那么以代码中的返回值为准。</p>
+<img src="/posts/landscape_problem_in_ios/1.png" alt="1.png" title="">
+<p>对于VC级的代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (UIInterfaceOrientationMask)supportedInterfaceOrientations &#123;</div><div class="line">    return UIInterfaceOrientationMaskLandscape;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这是<code>UIViewController</code>的<code>UIViewControllerRotation</code>分类中定义的方法，我们需要在VC中重写该方法，返回你需要的方向，上面的代码表明该VC只会横屏显示。</p>
+<h2 id="全局屏幕方向控制"><a href="#全局屏幕方向控制" class="headerlink" title="全局屏幕方向控制"></a>全局屏幕方向控制</h2><p>说完关于屏幕方向的基础知识来说一下工程中如何优雅的控制屏幕的方向，首先说一下全局的控制方案，就是在<code>AppDelegate</code>中进行控制，通过控制<code>- application: supportedInterfaceOrientationsForWindow:</code>的返回值来控制屏幕的方向。</p>
+<p>如果应用需要在某几个页面强制横屏，在某些页面只要竖屏，那可以使用类似下面的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line">//UIViewController+TopVC.m</div><div class="line"></div><div class="line">@implementation UIViewController (TopVC)</div><div class="line"></div><div class="line">+ (UIViewController *)topMostViewController &#123;</div><div class="line">    UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;</div><div class="line">    </div><div class="line">    return [self topViewControllerWithRootViewController:rootViewController];</div><div class="line">&#125;</div><div class="line"></div><div class="line">+ (UIViewController *)topViewControllerWithRootViewController:(UIViewController *)rootViewController &#123;</div><div class="line">    </div><div class="line">    if ([rootViewController isKindOfClass:[UITabBarController class]]) &#123;</div><div class="line">        UITabBarController* tabBarController = (UITabBarController*)rootViewController;</div><div class="line">        return [self topViewControllerWithRootViewController:tabBarController.selectedViewController];</div><div class="line">    &#125; else if ([rootViewController isKindOfClass:[UINavigationController class]]) &#123;</div><div class="line">        UINavigationController* nav = (UINavigationController*)rootViewController;</div><div class="line">        return [self topViewControllerWithRootViewController:nav.visibleViewController];</div><div class="line">    &#125; else if (rootViewController.presentedViewController) &#123;</div><div class="line">        UIViewController* presentedViewController = rootViewController.presentedViewController;</div><div class="line">        return [self topViewControllerWithRootViewController:presentedViewController];</div><div class="line">    &#125; else &#123;</div><div class="line">        return rootViewController;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">@end</div><div class="line"></div><div class="line"></div><div class="line">//AppDelegate.m</div><div class="line"></div><div class="line">@interface AppDelegate ()</div><div class="line"></div><div class="line">@end</div><div class="line"></div><div class="line">@implementation AppDelegate</div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line">- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window &#123;</div><div class="line">    if ([[UIViewController topMostViewController] isKindOfClass:[DPViewController class]]) &#123;</div><div class="line">        return UIInterfaceOrientationMaskLandscape;</div><div class="line">    &#125;</div><div class="line">    return UIInterfaceOrientationMaskPortrait;</div><div class="line">&#125;</div><div class="line">@end</div></pre></td></tr></table></figure>
+<p>就是获取最上层的VC，然后根据VC的类名来控制屏幕的方向。这个方法适合应用中有极少数界面的方向不同于其他界面。</p>
+<h2 id="局部屏幕方向控制"><a href="#局部屏幕方向控制" class="headerlink" title="局部屏幕方向控制"></a>局部屏幕方向控制</h2><ul>
+<li>继承</li>
+</ul>
+<p>这里局部的意思是每个VC控制自己的方向，这其实很好理解，如果一个VC只能竖屏，那么<code>-supportedInterfaceOrientations</code>方法就返回竖屏，只能横屏那么就返回横屏，有人觉得写太累了，每个VC都要重写这个方法，不过这样有一个好处，那就是能够应付应用界面方向很多种的情况，可以有一个简化的方式那就是建几个基础的基类：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">// DPLandscapeViewController.m</div><div class="line"></div><div class="line">@interface DPLandscapeViewController ()</div><div class="line"></div><div class="line">@end</div><div class="line"></div><div class="line">@implementation DPLandscapeViewController</div><div class="line"></div><div class="line">- (UIInterfaceOrientationMask)supportedInterfaceOrientations &#123;</div><div class="line">    return UIInterfaceOrientationMaskLandscape;</div><div class="line">&#125;</div><div class="line"></div><div class="line">@end</div><div class="line"></div><div class="line"></div><div class="line">// DPPortraitViewController.m</div><div class="line"></div><div class="line">@interface DPPortraitViewController ()</div><div class="line"></div><div class="line">@end</div><div class="line"></div><div class="line">@implementation DPPortraitViewController</div><div class="line"></div><div class="line">- (UIInterfaceOrientationMask)supportedInterfaceOrientations &#123;</div><div class="line">    return UIInterfaceOrientationMaskPortrait;</div><div class="line">&#125;</div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure>
+<p>例如建一个竖屏和一个横屏的基类，后面需要竖屏显示的VC都继承第一个类，需要横屏显示的都继承第二个类，这样就不用在每个VC中都重写这个方法了。</p>
+<p>这个方法适用于屏幕方向有许多种的应用，不过这样的应用应该比较少吧:)</p>
+<ul>
+<li>分类</li>
+</ul>
+<p>除了使用继承的方式，还可以使用分类的方法，这样感觉会更好些，不需要全部都继承一个类，也更加灵活，不需要在应用开发的初期就考虑好全部，在开发过程中也可以改变VC的屏幕方向，可以用类似下面的代码来实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">@implementation UIViewController (Orientation)</div><div class="line"></div><div class="line">-(NSUInteger) supportedInterfaceOrientations</div><div class="line">&#123;</div><div class="line">    if ([[self class] isSubclassOfClass:[XXXViewController class]]) &#123;</div><div class="line">        return UIInterfaceOrientationMaskLandscape;</div><div class="line">    &#125;</div><div class="line">    return UIInterfaceOrientationMaskPortrait;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在Category重写这个方法，根据不同的VC来设置不同的屏幕方向，这样很方便也很容易实现，但是如果这样写就不要在VC里再重写这个方法，否则这个方法就不会被调用。</p>
+<p>这个方法适用于应用中少数界面的方向与其他界面不同，当然即使应用里界面方向各异用这个方法也不是不行，个人觉得这是最优雅的方案，不用继承，不用在每个VC中都重写一个方法，灵活自由，后期修改也很方便。</p>
+<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><p>在介绍完上面两种方法后，有一个需要注意的点，这里有一个坑，十分的坑，那就是这两个方法千万不要同时使用，什么意思呢，如果在VC中重写了<code>-supportedInterfaceOrientations</code>方法，那么在AppDelegate中千万不要重写关于方向支持的方法，也不要在工程设置里勾选任意一个方向，否则你可能会遇到下面这个错误：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">*** Terminating app due to uncaught exception &apos;UIApplicationInvalidInterfaceOrientation&apos;, </div><div class="line">reason: &apos;Supported orientations has no common orientation with the application, </div><div class="line">and [DPViewController shouldAutorotate] is returning YES&apos;</div></pre></td></tr></table></figure>
+<p>什么原因呢？意思大致就是你的应用不支持某个方向，但是你的VC非要在那个方向上显示，就产生了这个错误，比如应用只支持竖向，而你的VC只支持横向，那么这个时候就冲突了。</p>
+<p>避免的方法很简单那就是不要同时重写两个方法，因为你很难去控制不冲突，至少说是会有这个隐患的，而我的建议是尽量不要使用全局的方法，因为如果别人添加一个VC的时候万一不知道而重写了<code>-supportedInterfaceOrientations</code>方法，那么就极其容易引起崩溃，所以这是个隐患，要尽量去避免。</p>
+<p>这里为什么说极其容易引起崩溃呢？这里给大家举个例子，在这个例子中，看似不会崩溃的代码实际上却会崩溃，大家准备好张大嘴吧！</p>
+<p>在AppDelegate中我们这样重写</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window &#123;</div><div class="line">    if ([[UIViewController topMostViewController] isKindOfClass:[DPViewController class]]) &#123;</div><div class="line">        return UIInterfaceOrientationMaskLandscape;</div><div class="line">    &#125;</div><div class="line">    return UIInterfaceOrientationMaskPortrait;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在DPViewController中我们这样重写</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (UIInterfaceOrientationMask)supportedInterfaceOrientations &#123;</div><div class="line">    return UIInterfaceOrientationMaskLandscape;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在其他ViewController中我们都这样重写</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">(UIInterfaceOrientationMask)supportedInterfaceOrientations &#123;</div><div class="line">    return UIInterfaceOrientationMaskPortrait;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>从代码的逻辑来看这样是没有问题的，在DPViewController下都设为横屏，其他都设为竖屏，但实际上这样是会崩溃的，崩溃的原因就是上面的原因，是不是很惊讶，为啥呢？这就跟它底层的实现有关了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">-[ViewController supportedInterfaceOrientations]</div><div class="line">-[AppDelegate application:supportedInterfaceOrientationsForWindow:]</div><div class="line">-[ViewController supportedInterfaceOrientations]</div><div class="line">-[AppDelegate application:supportedInterfaceOrientationsForWindow:]</div><div class="line">-[ViewController supportedInterfaceOrientations]</div><div class="line">-[AppDelegate application:supportedInterfaceOrientationsForWindow:]</div><div class="line">-[DPViewController supportedInterfaceOrientations]</div><div class="line">-[AppDelegate application:supportedInterfaceOrientationsForWindow:]</div><div class="line">-[DPViewController supportedInterfaceOrientations]</div><div class="line">-[AppDelegate application:supportedInterfaceOrientationsForWindow:]</div><div class="line">-[ViewController supportedInterfaceOrientations]</div><div class="line">-[AppDelegate application:supportedInterfaceOrientationsForWindow:]</div><div class="line">-[DPViewController supportedInterfaceOrientations]</div></pre></td></tr></table></figure>
+<p>我们来看从ViewController present DPViewController时的打印情况，首先会调用ViewController的<code>supportedInterfaceOrientations</code>方法，然后是AppDelegate，然后反复进行了3次，3次可能是经历了一个确认阶段，这时DPViewController还没被present出来，然后就是调用DPViewController和AppDelegate的方法，这时候最上层的VC已经变为DPViewController，所以AppDelegate的返回值已经是横屏了，这时比较有趣的是系统用调用了一次ViewController的<code>supportedInterfaceOrientations</code>方法，就是这样引起了冲突，导致了崩溃，所以这个崩溃的原因是很奇怪的，是因为这些方法古怪的调用顺序造成的，但是这个既然是这样肯定有他的道理，存在即合理，何况是苹果的实现。</p>
+<p>综上我想说，全局的方向控制还是少用，即使要用也要完全理解了，尽量减少应用崩溃的风险。</p>
+<h2 id="UINavigationController的屏幕方向"><a href="#UINavigationController的屏幕方向" class="headerlink" title="UINavigationController的屏幕方向"></a>UINavigationController的屏幕方向</h2><p>UINavigationController的情况是比较特殊的，对于UINavigationController来说，他的子VC的屏幕方向是跟随UINavigationController的，就是说即使你的子VC重写了<code>supportedInterfaceOrientations</code>方法，但当这个VC被push出来时，其方向也不会是你设定的方向。</p>
+<p>这个情况该如何解决呢，如果你想让push出来的VC具有present出的VC同样的属性，即返回啥方向就按照啥方向来显示，那么你需要继承UINavigationController在写一个类重写其<code>supportedInterfaceOrientations</code>方法，可以写成类似下面的样子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (UIInterfaceOrientationMask)supportedInterfaceOrientations &#123;</div><div class="line">    return [self.topViewController supportedInterfaceOrientations];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>让UINavigationController的方向取决于最上层的子VC，不过这样还是有一个问题，假设开始是竖屏的，你push一个设置为横屏的VC，可是push出来后仍然是竖屏，这时你要把手机横过来，VC才能变为横屏，这就比较尴尬了，不符合我们之前的预期！不要急，这个问题肯定能够解决的。</p>
+<p>还记得文章开头时所写的主动转屏的方法嘛，这里就能派上用场了，虽然是私有API，但是能解决问题，在push方法结束后让设备变为横屏，这样就没问题了。</p>
+<p>其实这里调用这个方法就相当于你模拟了将手机横过来的操作，我猜测苹果在检测到手机角度发生变化时就是调用那个私有API，完成屏幕的跟随旋转，所以这也就能解释通为何这个方法会变成私有API，因为这个API对于开发者来说应该是没有应用场景的，因为你是没有权利去模拟一个旋转手机的操作，所以这个方法对于开发者不应该开放。</p>
+<p>当然除了这个解决方案，stackoverflow上也给出了不同的解决方案：<a href="http://stackoverflow.com/questions/9826920/uinavigationcontroller-force-rotate">UINavigationController Force Rotate</a>，大家可以参考一下，觉得哪个好就用哪个！</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>以上是在解决问题的过程中学习到的和自己的总结思考，如果有错误希望大家能够指出。其实我真正要解决的问题并没有解决，前面还说到一个问题：当你把应用设为只能竖屏也不能保证应用里不出现横屏的界面。我就遇到过，当我在接入一家视频广告的时我发现在一个只许横屏的应用中，这个视频仍然能够横屏播放却不会出错，这让我很好奇他是怎么做到的，如果有人知道希望大家留言告诉我，不胜感激！不过我也会持续研究，如果有什么新发现，还会写一篇博客分享。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS开发/" rel="tag"># iOS开发</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/nsarray_amazing_adventures/" rel="next" title="【译】NSArray的奇妙探索之旅（深入探究NSArray）">
+                <i class="fa fa-chevron-left"></i> 【译】NSArray的奇妙探索之旅（深入探究NSArray）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/use_kvo_in_one_minute/" rel="prev" title="iOS开发之快速上手KVO">
+                iOS开发之快速上手KVO <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/daipei.jpg"
+               alt="DaiPei" />
+          <p class="site-author-name" itemprop="name">DaiPei</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">tags</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#正文"><span class="nav-number">2.</span> <span class="nav-text">正文</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#横屏概况"><span class="nav-number">2.1.</span> <span class="nav-text">横屏概况</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#全局屏幕方向控制"><span class="nav-number">2.2.</span> <span class="nav-text">全局屏幕方向控制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#局部屏幕方向控制"><span class="nav-number">2.3.</span> <span class="nav-text">局部屏幕方向控制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注意"><span class="nav-number">2.4.</span> <span class="nav-text">注意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UINavigationController的屏幕方向"><span class="nav-number">2.5.</span> <span class="nav-text">UINavigationController的屏幕方向</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">DaiPei</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "b24ff215c66d4c03bc1702fbdff177d3",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

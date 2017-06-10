@@ -1,0 +1,896 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="iOS开发," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="前言网上关于Framework制作的教程数不胜数，然而都过于陈旧，最新的也是使用Xcode7的教程，而且有些设置也只给出步骤，并没有给出原因，而且按照有些教程制作出的framework还有些问题，所以我把自己制作framework的过程记录下来，并且使用的是最新的Xcode8环境。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ios开发：Xcode8制作framework及使用">
+<meta property="og:url" content="https://948080952.github.io/2016/10/07/ios开发：Xcode8制作framework及使用/index.html">
+<meta property="og:site_name" content="DaiPei's Blog">
+<meta property="og:description" content="前言网上关于Framework制作的教程数不胜数，然而都过于陈旧，最新的也是使用Xcode7的教程，而且有些设置也只给出步骤，并没有给出原因，而且按照有些教程制作出的framework还有些问题，所以我把自己制作framework的过程记录下来，并且使用的是最新的Xcode8环境。">
+<meta property="og:image" content="https://948080952.github.io/2016/10/07/ios开发：Xcode8制作framework及使用/1.png">
+<meta property="og:image" content="https://948080952.github.io/2016/10/07/ios开发：Xcode8制作framework及使用/2.png">
+<meta property="og:image" content="https://948080952.github.io/2016/10/07/ios开发：Xcode8制作framework及使用/3.png">
+<meta property="og:image" content="https://948080952.github.io/2016/10/07/ios开发：Xcode8制作framework及使用/4.png">
+<meta property="og:image" content="https://948080952.github.io/2016/10/07/ios开发：Xcode8制作framework及使用/5.png">
+<meta property="og:image" content="https://948080952.github.io/2016/10/07/ios开发：Xcode8制作framework及使用/6.png">
+<meta property="og:image" content="https://948080952.github.io/2016/10/07/ios开发：Xcode8制作framework及使用/7.png">
+<meta property="og:image" content="https://948080952.github.io/2016/10/07/ios开发：Xcode8制作framework及使用/8.png">
+<meta property="og:image" content="https://948080952.github.io/2016/10/07/ios开发：Xcode8制作framework及使用/9.png">
+<meta property="og:image" content="https://948080952.github.io/2016/10/07/ios开发：Xcode8制作framework及使用/10.png">
+<meta property="og:image" content="https://948080952.github.io/2016/10/07/ios开发：Xcode8制作framework及使用/11.png">
+<meta property="og:image" content="https://948080952.github.io/2016/10/07/ios开发：Xcode8制作framework及使用/12.png">
+<meta property="og:image" content="https://948080952.github.io/2016/10/07/ios开发：Xcode8制作framework及使用/13.png">
+<meta property="og:image" content="https://948080952.github.io/2016/10/07/ios开发：Xcode8制作framework及使用/14.png">
+<meta property="og:image" content="https://948080952.github.io/2016/10/07/ios开发：Xcode8制作framework及使用/15.png">
+<meta property="og:image" content="https://948080952.github.io/2016/10/07/ios开发：Xcode8制作framework及使用/16.png">
+<meta property="og:image" content="https://948080952.github.io/2016/10/07/ios开发：Xcode8制作framework及使用/17.png">
+<meta property="og:image" content="https://948080952.github.io/2016/10/07/ios开发：Xcode8制作framework及使用/18.png">
+<meta property="og:image" content="https://948080952.github.io/2016/10/07/ios开发：Xcode8制作framework及使用/19.png">
+<meta property="og:image" content="https://948080952.github.io/2016/10/07/ios开发：Xcode8制作framework及使用/20.png">
+<meta property="og:image" content="https://948080952.github.io/2016/10/07/ios开发：Xcode8制作framework及使用/21.png">
+<meta property="og:image" content="https://948080952.github.io/2016/10/07/ios开发：Xcode8制作framework及使用/22.png">
+<meta property="og:image" content="https://948080952.github.io/2016/10/07/ios开发：Xcode8制作framework及使用/23.png">
+<meta property="og:image" content="https://948080952.github.io/2016/10/07/ios开发：Xcode8制作framework及使用/24.png">
+<meta property="og:image" content="https://948080952.github.io/2016/10/07/ios开发：Xcode8制作framework及使用/25.png">
+<meta property="og:image" content="https://948080952.github.io/2016/10/07/ios开发：Xcode8制作framework及使用/26.png">
+<meta property="og:image" content="https://948080952.github.io/2016/10/07/ios开发：Xcode8制作framework及使用/27.png">
+<meta property="og:updated_time" content="2017-02-27T13:00:32.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ios开发：Xcode8制作framework及使用">
+<meta name="twitter:description" content="前言网上关于Framework制作的教程数不胜数，然而都过于陈旧，最新的也是使用Xcode7的教程，而且有些设置也只给出步骤，并没有给出原因，而且按照有些教程制作出的framework还有些问题，所以我把自己制作framework的过程记录下来，并且使用的是最新的Xcode8环境。">
+<meta name="twitter:image" content="https://948080952.github.io/2016/10/07/ios开发：Xcode8制作framework及使用/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://948080952.github.io/2016/10/07/ios开发：Xcode8制作framework及使用/"/>
+
+
+
+
+
+  <title> ios开发：Xcode8制作framework及使用 | DaiPei's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">DaiPei's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle"></p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://948080952.github.io/2016/10/07/ios开发：Xcode8制作framework及使用/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="DaiPei">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/daipei.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="DaiPei's Blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="DaiPei's Blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                ios开发：Xcode8制作framework及使用
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-10-07T13:18:15+08:00">
+                2016-10-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/10/07/ios开发：Xcode8制作framework及使用/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/07/ios开发：Xcode8制作framework及使用/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2016/10/07/ios开发：Xcode8制作framework及使用/" class="leancloud_visitors" data-flag-title="ios开发：Xcode8制作framework及使用">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>网上关于Framework制作的教程数不胜数，然而都过于陈旧，最新的也是使用Xcode7的教程，而且有些设置也只给出步骤，并没有给出原因，而且按照有些教程制作出的framework还有些问题，所以我把自己制作framework的过程记录下来，并且使用的是最新的Xcode8环境。</p>
+<a id="more"></a>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>首先新建一个项目，选择Cocoa touch Framework</p>
+<img src="/2016/10/07/ios开发：Xcode8制作framework及使用/1.png" alt="1.png" title="">
+<p>然后随便取一个名字</p>
+<img src="/2016/10/07/ios开发：Xcode8制作framework及使用/2.png" alt="2.png" title="">
+<p>然后将要封装成framework的代码拖入工程</p>
+<img src="/2016/10/07/ios开发：Xcode8制作framework及使用/3.png" alt="3.png" title="">
+<p>选择工程文件&gt;target第一项&gt;Build Setting&gt;搜索linking，然后几个需要设置的选项都显现出来，首先是Dead Code Stripping设置为NO，网上对此项的解释如下，大致意思是如果开启此项就会对代码中的”dead”、”unreachable”的代码过滤，不过这个开关是否关闭，似乎没有多大影响，不过为了完整还原framework中的代码，将此项关闭也未曾不可。</p>
+<blockquote>
+<p>The resulting executable will not include any “dead” or unreachable code</p>
+</blockquote>
+<p>然后将Link With Standard Libraries关闭，我想可能是为了避免重复链接</p>
+<p>最后将Mach-O Type设为Static Library，framework可以是动态库也可以是静态库，对于系统的framework是动态库，而用户制作的framework只能是静态库。</p>
+<img src="/2016/10/07/ios开发：Xcode8制作framework及使用/4.png" alt="4.png" title="">
+<p>然后将需要公开的头文件从Project中拖入Public，至于是否需要将私有的头文件拖入Private，我觉得直接放在Project中即可，若是Private中有头文件，打包以后的framework中会多出一个Private的文件夹包含着放入Private的头文件，不过我觉得如果是私有最好还是不要让别人看到。<br><img src="/2016/10/07/ios开发：Xcode8制作framework及使用/5.png" alt="5.png" title=""></p>
+<p>为了对一些特殊机型的支持，添加armv7s架构，当然不添加也没什么问题，只有5和5c使用了此架构。</p>
+<img src="/2016/10/07/ios开发：Xcode8制作framework及使用/6.png" alt="6.png" title="">
+<p>下面就开始编译了，先选择Generic iOS Device，按下Command+B：Build一下</p>
+<img src="/2016/10/07/ios开发：Xcode8制作framework及使用/7.png" alt="7.png" title="">
+<p>然后随意选择一个模拟器再次Build一下</p>
+<img src="/2016/10/07/ios开发：Xcode8制作framework及使用/8.png" alt="8.png" title="">
+<p>找到Build后的framework</p>
+<img src="/2016/10/07/ios开发：Xcode8制作framework及使用/9.png" alt="9.png" title="">
+<p>我们看到总共有两个文件夹，上面是真机编译生成的文件，下面是模拟器编译生成的文件。</p>
+<img src="/2016/10/07/ios开发：Xcode8制作framework及使用/10.png" alt="10.png" title="">
+<p>然后用命令行将下面两个文件进行合成    </p>
+<img src="/2016/10/07/ios开发：Xcode8制作framework及使用/11.png" alt="11.png" title="">
+<img src="/2016/10/07/ios开发：Xcode8制作framework及使用/12.png" alt="12.png" title="">    
+<p>将合成后的文件输出到桌面之上，这里解释一下这看似很复杂的命令：<code>lipo -create</code> +上面两个文件的路径 + <code>-output</code> + 合成后文件的输出路径</p>
+<img src="/2016/10/07/ios开发：Xcode8制作framework及使用/13.png" alt="13.png" title="">
+<p>然后用输出在桌面上的YuXinSDK替换掉前面Debug-iphoneos中framework中的YuXinSDK</p>
+<p>将这做好的framework直接拖入要使用的工程中</p>
+<img src="/2016/10/07/ios开发：Xcode8制作framework及使用/14.png" alt="14.png" title="">
+<p>注意将Copy items if needed打勾</p>
+<img src="/2016/10/07/ios开发：Xcode8制作framework及使用/15.png" alt="15.png" title="">
+<p>然后在工程的search path中加上此framework的Headers的路径</p>
+<img src="/2016/10/07/ios开发：Xcode8制作framework及使用/16.png" alt="16.png" title="">
+<img src="/2016/10/07/ios开发：Xcode8制作framework及使用/17.png" alt="17.png" title="">
+<img src="/2016/10/07/ios开发：Xcode8制作framework及使用/18.png" alt="18.png" title="">
+<p>本以为大功告成，按下了Command+R悠闲的等着编译运行，然而在链接的时候却出了问题</p>
+<img src="/2016/10/07/ios开发：Xcode8制作framework及使用/19.png" alt="19.png" title="">
+<p>很经典的错误，库中缺少了i386架构的文件，这时我就比较困惑了，明明将模拟器生成的库文件合并进来了，怎么在模拟器上编不通呢！用lipo命令查看一下，果然没有i386架构的文件</p>
+<img src="/2016/10/07/ios开发：Xcode8制作framework及使用/20.png" alt="20.png" title="">
+<p>再看一下用模拟器生成的framework</p>
+<img src="/2016/10/07/ios开发：Xcode8制作framework及使用/21.png" alt="21.png" title="">
+<p>居然只有x86_64架构</p>
+<p>我换成iPhone 4s模拟器，编译后生成的文件居然包含了i386</p>
+<img src="/2016/10/07/ios开发：Xcode8制作framework及使用/22.png" alt="22.png" title="">
+<p>经过我的测试，在iPhone5之前编译的framework都是i386架构，iPhone 5s之后都是x86_64架构，然而在所有模拟器上运行时，这两种架构缺一不可，然后我将这两种架构的framework合并在与真机的合并</p>
+<img src="/2016/10/07/ios开发：Xcode8制作framework及使用/23.png" alt="23.png" title="">
+<p>拖入工程后终于能够正常运行了</p>
+<img src="/2016/10/07/ios开发：Xcode8制作framework及使用/24.png" alt="24.png" title="">
+<p>后来经过摸索发现之前按照网上的教程却把自己坑了</p>
+<img src="/2016/10/07/ios开发：Xcode8制作framework及使用/25.png" alt="25.png" title="">
+<p>开始将上图中的选项设为YES，导致其编译时只生成当前机器的框架，将其设置为NO后，发现用模拟器编译后生成的framework同时包含x86_64和i386架构。</p>
+<h3 id="bitCode错误"><a href="#bitCode错误" class="headerlink" title="bitCode错误"></a><strong>bitCode错误</strong></h3><p>在项目中引入静态库后，archive的时候又会出现错误<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">bitcode bundle could not be generated because ... was built without full bitcode.All object files and libraries for bitcode must be generated from Xcode Archive or Install build for architecture arm64</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>Bitcode是苹果在Xcode7及以后推出的新功能。用于代码的二次编译，针对CPU进行优化，编译工作由苹果AppStore后台来完成。<br>针对iOS是可选项，默认打开。watchOS 和 tvOS 是必选项。</p>
+</blockquote>
+<img src="/2016/10/07/ios开发：Xcode8制作framework及使用/26.png" alt="26.png" title="">
+<p>所以需要打开库工程的此选项并加上-fembed-bitcode参数，重新编译</p>
+<img src="/2016/10/07/ios开发：Xcode8制作framework及使用/27.png" alt="27.png" title="">
+<p>如此archive时就不会出问题了，到此我在制作使用framework时遇到的问题都在这里了。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><h3 id="架构"><a href="#架构" class="headerlink" title="架构"></a><strong>架构</strong></h3><p>对于模拟器来说4s和5的模架构是i386的32位架构，5s至今是x86_64的64位架构。对于真机来说3GS~4s是armv7架构，5和5c是armv7s架构，5s至今是arm64架构</p>
+<h3 id="静态库"><a href="#静态库" class="headerlink" title="静态库"></a><strong>静态库</strong></h3><p>静态库： 链接时完整地拷贝至可执行文件中，被多次使用就有多份冗余拷贝。</p>
+<h3 id="动态库"><a href="#动态库" class="headerlink" title="动态库"></a><strong>动态库</strong></h3><p>动态库：链接时不会拷贝至可执行文件中，运行时动态加载进内存，供程序调用，只加载一次，多个程序可以共用。</p>
+<p>我已经将代码上传到github上，这里给出地址：<a href="https://github.com/948080952/YuXinSDK">https://github.com/948080952/YuXinSDK</a></p>
+<p>此篇博客中参考了的博客：<a href="https://my.oschina.net/kaqijiang/blog/649632">https://my.oschina.net/kaqijiang/blog/649632</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS开发/" rel="tag"># iOS开发</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/04/一个iOS项目总结（二）：界面/" rel="next" title="一个iOS项目总结（二）：界面">
+                <i class="fa fa-chevron-left"></i> 一个iOS项目总结（二）：界面
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/20/iOS中UIGestureRecognizer相关问题/" rel="prev" title="iOS中UIGestureRecognizer相关问题">
+                iOS中UIGestureRecognizer相关问题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/10/07/ios开发：Xcode8制作framework及使用/"
+           data-title="ios开发：Xcode8制作framework及使用" data-url="https://948080952.github.io/2016/10/07/ios开发：Xcode8制作framework及使用/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/daipei.jpg"
+               alt="DaiPei" />
+          <p class="site-author-name" itemprop="name">DaiPei</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">tags</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正文"><span class="nav-number">2.</span> <span class="nav-text">正文</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#bitCode错误"><span class="nav-number">2.1.</span> <span class="nav-text">bitCode错误</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#架构"><span class="nav-number">3.1.</span> <span class="nav-text">架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#静态库"><span class="nav-number">3.2.</span> <span class="nav-text">静态库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态库"><span class="nav-number">3.3.</span> <span class="nav-text">动态库</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">DaiPei</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"daipeihust"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("k7SCWO7enmjJUQxF9flaCnHq-gzGzoHsz", "IlP5u7eyCCGxtCqiz65lvLCy");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+
+</body>
+</html>
