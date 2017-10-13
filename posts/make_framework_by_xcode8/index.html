@@ -98,41 +98,41 @@
 <meta name="description" content="前言网上关于Framework制作的教程数不胜数，然而都过于陈旧，最新的也是使用Xcode7的教程，而且有些设置也只给出步骤，并没有给出原因，而且按照有些教程制作出的framework还有些问题，所以我把自己制作framework的过程记录下来，并且使用的是最新的Xcode8环境。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ios开发：Xcode8制作framework及使用">
-<meta property="og:url" content="https://948080952.github.io/posts/make_framework_by_xcode8/index.html">
+<meta property="og:url" content="https://daipeihust.github.io/posts/make_framework_by_xcode8/index.html">
 <meta property="og:site_name" content="DaiPei's Blog">
 <meta property="og:description" content="前言网上关于Framework制作的教程数不胜数，然而都过于陈旧，最新的也是使用Xcode7的教程，而且有些设置也只给出步骤，并没有给出原因，而且按照有些教程制作出的framework还有些问题，所以我把自己制作framework的过程记录下来，并且使用的是最新的Xcode8环境。">
-<meta property="og:image" content="https://948080952.github.io/posts/make_framework_by_xcode8/1.png">
-<meta property="og:image" content="https://948080952.github.io/posts/make_framework_by_xcode8/2.png">
-<meta property="og:image" content="https://948080952.github.io/posts/make_framework_by_xcode8/3.png">
-<meta property="og:image" content="https://948080952.github.io/posts/make_framework_by_xcode8/4.png">
-<meta property="og:image" content="https://948080952.github.io/posts/make_framework_by_xcode8/5.png">
-<meta property="og:image" content="https://948080952.github.io/posts/make_framework_by_xcode8/6.png">
-<meta property="og:image" content="https://948080952.github.io/posts/make_framework_by_xcode8/7.png">
-<meta property="og:image" content="https://948080952.github.io/posts/make_framework_by_xcode8/8.png">
-<meta property="og:image" content="https://948080952.github.io/posts/make_framework_by_xcode8/9.png">
-<meta property="og:image" content="https://948080952.github.io/posts/make_framework_by_xcode8/10.png">
-<meta property="og:image" content="https://948080952.github.io/posts/make_framework_by_xcode8/11.png">
-<meta property="og:image" content="https://948080952.github.io/posts/make_framework_by_xcode8/12.png">
-<meta property="og:image" content="https://948080952.github.io/posts/make_framework_by_xcode8/13.png">
-<meta property="og:image" content="https://948080952.github.io/posts/make_framework_by_xcode8/14.png">
-<meta property="og:image" content="https://948080952.github.io/posts/make_framework_by_xcode8/15.png">
-<meta property="og:image" content="https://948080952.github.io/posts/make_framework_by_xcode8/16.png">
-<meta property="og:image" content="https://948080952.github.io/posts/make_framework_by_xcode8/17.png">
-<meta property="og:image" content="https://948080952.github.io/posts/make_framework_by_xcode8/18.png">
-<meta property="og:image" content="https://948080952.github.io/posts/make_framework_by_xcode8/19.png">
-<meta property="og:image" content="https://948080952.github.io/posts/make_framework_by_xcode8/20.png">
-<meta property="og:image" content="https://948080952.github.io/posts/make_framework_by_xcode8/21.png">
-<meta property="og:image" content="https://948080952.github.io/posts/make_framework_by_xcode8/22.png">
-<meta property="og:image" content="https://948080952.github.io/posts/make_framework_by_xcode8/23.png">
-<meta property="og:image" content="https://948080952.github.io/posts/make_framework_by_xcode8/24.png">
-<meta property="og:image" content="https://948080952.github.io/posts/make_framework_by_xcode8/25.png">
-<meta property="og:image" content="https://948080952.github.io/posts/make_framework_by_xcode8/26.png">
-<meta property="og:image" content="https://948080952.github.io/posts/make_framework_by_xcode8/27.png">
+<meta property="og:image" content="https://daipeihust.github.io/posts/make_framework_by_xcode8/1.png">
+<meta property="og:image" content="https://daipeihust.github.io/posts/make_framework_by_xcode8/2.png">
+<meta property="og:image" content="https://daipeihust.github.io/posts/make_framework_by_xcode8/3.png">
+<meta property="og:image" content="https://daipeihust.github.io/posts/make_framework_by_xcode8/4.png">
+<meta property="og:image" content="https://daipeihust.github.io/posts/make_framework_by_xcode8/5.png">
+<meta property="og:image" content="https://daipeihust.github.io/posts/make_framework_by_xcode8/6.png">
+<meta property="og:image" content="https://daipeihust.github.io/posts/make_framework_by_xcode8/7.png">
+<meta property="og:image" content="https://daipeihust.github.io/posts/make_framework_by_xcode8/8.png">
+<meta property="og:image" content="https://daipeihust.github.io/posts/make_framework_by_xcode8/9.png">
+<meta property="og:image" content="https://daipeihust.github.io/posts/make_framework_by_xcode8/10.png">
+<meta property="og:image" content="https://daipeihust.github.io/posts/make_framework_by_xcode8/11.png">
+<meta property="og:image" content="https://daipeihust.github.io/posts/make_framework_by_xcode8/12.png">
+<meta property="og:image" content="https://daipeihust.github.io/posts/make_framework_by_xcode8/13.png">
+<meta property="og:image" content="https://daipeihust.github.io/posts/make_framework_by_xcode8/14.png">
+<meta property="og:image" content="https://daipeihust.github.io/posts/make_framework_by_xcode8/15.png">
+<meta property="og:image" content="https://daipeihust.github.io/posts/make_framework_by_xcode8/16.png">
+<meta property="og:image" content="https://daipeihust.github.io/posts/make_framework_by_xcode8/17.png">
+<meta property="og:image" content="https://daipeihust.github.io/posts/make_framework_by_xcode8/18.png">
+<meta property="og:image" content="https://daipeihust.github.io/posts/make_framework_by_xcode8/19.png">
+<meta property="og:image" content="https://daipeihust.github.io/posts/make_framework_by_xcode8/20.png">
+<meta property="og:image" content="https://daipeihust.github.io/posts/make_framework_by_xcode8/21.png">
+<meta property="og:image" content="https://daipeihust.github.io/posts/make_framework_by_xcode8/22.png">
+<meta property="og:image" content="https://daipeihust.github.io/posts/make_framework_by_xcode8/23.png">
+<meta property="og:image" content="https://daipeihust.github.io/posts/make_framework_by_xcode8/24.png">
+<meta property="og:image" content="https://daipeihust.github.io/posts/make_framework_by_xcode8/25.png">
+<meta property="og:image" content="https://daipeihust.github.io/posts/make_framework_by_xcode8/26.png">
+<meta property="og:image" content="https://daipeihust.github.io/posts/make_framework_by_xcode8/27.png">
 <meta property="og:updated_time" content="2017-06-10T05:44:18.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ios开发：Xcode8制作framework及使用">
 <meta name="twitter:description" content="前言网上关于Framework制作的教程数不胜数，然而都过于陈旧，最新的也是使用Xcode7的教程，而且有些设置也只给出步骤，并没有给出原因，而且按照有些教程制作出的framework还有些问题，所以我把自己制作framework的过程记录下来，并且使用的是最新的Xcode8环境。">
-<meta name="twitter:image" content="https://948080952.github.io/posts/make_framework_by_xcode8/1.png">
+<meta name="twitter:image" content="https://daipeihust.github.io/posts/make_framework_by_xcode8/1.png">
 
 
 
@@ -160,7 +160,7 @@
 
 
 
-  <link rel="canonical" href="https://948080952.github.io/posts/make_framework_by_xcode8/"/>
+  <link rel="canonical" href="https://daipeihust.github.io/posts/make_framework_by_xcode8/"/>
 
 
 
@@ -296,7 +296,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://948080952.github.io/posts/make_framework_by_xcode8/">
+    <link itemprop="mainEntityOfPage" href="https://daipeihust.github.io/posts/make_framework_by_xcode8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="DaiPei">

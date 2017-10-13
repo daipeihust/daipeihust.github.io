@@ -4,9 +4,9 @@
   
   <link href="/atom.xml" rel="self"/>
   
-  <link href="https://948080952.github.io/"/>
+  <link href="https://daipeihust.github.io/"/>
   <updated>2017-06-10T05:49:53.000Z</updated>
-  <id>https://948080952.github.io/</id>
+  <id>https://daipeihust.github.io/</id>
   
   <author>
     <name>DaiPei</name>
@@ -17,8 +17,8 @@
   
   <entry>
     <title>Masonry源码分析</title>
-    <link href="https://948080952.github.io/posts/source_code_analysis_of_masonry/"/>
-    <id>https://948080952.github.io/posts/source_code_analysis_of_masonry/</id>
+    <link href="https://daipeihust.github.io/posts/source_code_analysis_of_masonry/"/>
+    <id>https://daipeihust.github.io/posts/source_code_analysis_of_masonry/</id>
     <published>2017-06-03T01:57:24.000Z</published>
     <updated>2017-06-10T05:49:53.000Z</updated>
     
@@ -35,8 +35,8 @@
   
   <entry>
     <title>仿猪来了转盘button的实现</title>
-    <link href="https://948080952.github.io/posts/imitate_button_in_pigcoming/"/>
-    <id>https://948080952.github.io/posts/imitate_button_in_pigcoming/</id>
+    <link href="https://daipeihust.github.io/posts/imitate_button_in_pigcoming/"/>
+    <id>https://daipeihust.github.io/posts/imitate_button_in_pigcoming/</id>
     <published>2017-03-05T11:50:59.000Z</published>
     <updated>2017-06-10T06:16:07.000Z</updated>
     
@@ -51,8 +51,8 @@
   
   <entry>
     <title>Xcode项目文件丢失</title>
-    <link href="https://948080952.github.io/posts/file_lost_in_xcode/"/>
-    <id>https://948080952.github.io/posts/file_lost_in_xcode/</id>
+    <link href="https://daipeihust.github.io/posts/file_lost_in_xcode/"/>
+    <id>https://daipeihust.github.io/posts/file_lost_in_xcode/</id>
     <published>2017-02-12T05:32:33.000Z</published>
     <updated>2017-06-10T05:52:19.000Z</updated>
     
@@ -74,8 +74,8 @@
   
   <entry>
     <title>Method Swizzling中的陷阱</title>
-    <link href="https://948080952.github.io/posts/trap_in_method_swizzling/"/>
-    <id>https://948080952.github.io/posts/trap_in_method_swizzling/</id>
+    <link href="https://daipeihust.github.io/posts/trap_in_method_swizzling/"/>
+    <id>https://daipeihust.github.io/posts/trap_in_method_swizzling/</id>
     <published>2017-02-05T11:55:15.000Z</published>
     <updated>2017-06-10T05:50:11.000Z</updated>
     
@@ -93,8 +93,8 @@
   
   <entry>
     <title>SKStoreProductViewController中的坑</title>
-    <link href="https://948080952.github.io/posts/problem_in_skstoreproductviewcontroller/"/>
-    <id>https://948080952.github.io/posts/problem_in_skstoreproductviewcontroller/</id>
+    <link href="https://daipeihust.github.io/posts/problem_in_skstoreproductviewcontroller/"/>
+    <id>https://daipeihust.github.io/posts/problem_in_skstoreproductviewcontroller/</id>
     <published>2017-01-15T03:12:19.000Z</published>
     <updated>2017-06-10T05:51:59.000Z</updated>
     
@@ -110,8 +110,8 @@
   
   <entry>
     <title>CocoaPods版本升级</title>
-    <link href="https://948080952.github.io/posts/update_cocoaspods_version/"/>
-    <id>https://948080952.github.io/posts/update_cocoaspods_version/</id>
+    <link href="https://daipeihust.github.io/posts/update_cocoaspods_version/"/>
+    <id>https://daipeihust.github.io/posts/update_cocoaspods_version/</id>
     <published>2017-01-11T11:00:22.000Z</published>
     <updated>2017-06-10T05:43:13.000Z</updated>
     
@@ -124,14 +124,14 @@
     </summary>
     
     
-      <category term="iOS开发" scheme="https://948080952.github.io/tags/iOS%E5%BC%80%E5%8F%91/"/>
+      <category term="iOS开发" scheme="https://daipeihust.github.io/tags/iOS%E5%BC%80%E5%8F%91/"/>
     
   </entry>
   
   <entry>
     <title>一些好用的Mac软件推荐</title>
-    <link href="https://948080952.github.io/posts/app_recommand_on_mac/"/>
-    <id>https://948080952.github.io/posts/app_recommand_on_mac/</id>
+    <link href="https://daipeihust.github.io/posts/app_recommand_on_mac/"/>
+    <id>https://daipeihust.github.io/posts/app_recommand_on_mac/</id>
     <published>2016-12-30T13:43:38.000Z</published>
     <updated>2017-06-10T05:42:13.000Z</updated>
     
@@ -146,8 +146,8 @@
   
   <entry>
     <title>iOS开发之快速上手KVO</title>
-    <link href="https://948080952.github.io/posts/use_kvo_in_one_minute/"/>
-    <id>https://948080952.github.io/posts/use_kvo_in_one_minute/</id>
+    <link href="https://daipeihust.github.io/posts/use_kvo_in_one_minute/"/>
+    <id>https://daipeihust.github.io/posts/use_kvo_in_one_minute/</id>
     <published>2016-12-22T13:02:00.000Z</published>
     <updated>2017-06-10T05:45:13.000Z</updated>
     
@@ -158,14 +158,14 @@
     </summary>
     
     
-      <category term="iOS开发" scheme="https://948080952.github.io/tags/iOS%E5%BC%80%E5%8F%91/"/>
+      <category term="iOS开发" scheme="https://daipeihust.github.io/tags/iOS%E5%BC%80%E5%8F%91/"/>
     
   </entry>
   
   <entry>
     <title>iOS开发中的横屏问题</title>
-    <link href="https://948080952.github.io/posts/landscape_problem_in_ios/"/>
-    <id>https://948080952.github.io/posts/landscape_problem_in_ios/</id>
+    <link href="https://daipeihust.github.io/posts/landscape_problem_in_ios/"/>
+    <id>https://daipeihust.github.io/posts/landscape_problem_in_ios/</id>
     <published>2016-12-16T18:48:16.000Z</published>
     <updated>2017-06-10T05:45:35.000Z</updated>
     
@@ -176,14 +176,14 @@
     </summary>
     
     
-      <category term="iOS开发" scheme="https://948080952.github.io/tags/iOS%E5%BC%80%E5%8F%91/"/>
+      <category term="iOS开发" scheme="https://daipeihust.github.io/tags/iOS%E5%BC%80%E5%8F%91/"/>
     
   </entry>
   
   <entry>
     <title>【译】NSArray的奇妙探索之旅（深入探究NSArray）</title>
-    <link href="https://948080952.github.io/posts/nsarray_amazing_adventures/"/>
-    <id>https://948080952.github.io/posts/nsarray_amazing_adventures/</id>
+    <link href="https://daipeihust.github.io/posts/nsarray_amazing_adventures/"/>
+    <id>https://daipeihust.github.io/posts/nsarray_amazing_adventures/</id>
     <published>2016-12-10T16:37:24.000Z</published>
     <updated>2017-06-10T05:35:46.000Z</updated>
     
@@ -204,8 +204,8 @@
   
   <entry>
     <title>Foundation对象与Core Foundation对象间的转换：Toll-Free Birdge</title>
-    <link href="https://948080952.github.io/posts/transform_between_foundation_corefoundation/"/>
-    <id>https://948080952.github.io/posts/transform_between_foundation_corefoundation/</id>
+    <link href="https://daipeihust.github.io/posts/transform_between_foundation_corefoundation/"/>
+    <id>https://daipeihust.github.io/posts/transform_between_foundation_corefoundation/</id>
     <published>2016-11-27T12:33:34.000Z</published>
     <updated>2017-06-10T05:43:49.000Z</updated>
     
@@ -220,8 +220,8 @@
   
   <entry>
     <title>【译】Objective-C中类的+load和+initialize</title>
-    <link href="https://948080952.github.io/posts/load_and_initialize_in_oc/"/>
-    <id>https://948080952.github.io/posts/load_and_initialize_in_oc/</id>
+    <link href="https://daipeihust.github.io/posts/load_and_initialize_in_oc/"/>
+    <id>https://daipeihust.github.io/posts/load_and_initialize_in_oc/</id>
     <published>2016-11-25T17:06:01.000Z</published>
     <updated>2017-06-10T05:36:45.000Z</updated>
     
@@ -237,8 +237,8 @@
   
   <entry>
     <title>iOS开发中的HexString</title>
-    <link href="https://948080952.github.io/posts/hexstring_in_ios/"/>
-    <id>https://948080952.github.io/posts/hexstring_in_ios/</id>
+    <link href="https://daipeihust.github.io/posts/hexstring_in_ios/"/>
+    <id>https://daipeihust.github.io/posts/hexstring_in_ios/</id>
     <published>2016-11-21T00:43:37.000Z</published>
     <updated>2017-06-10T05:46:29.000Z</updated>
     
@@ -249,14 +249,14 @@
     </summary>
     
     
-      <category term="iOS开发" scheme="https://948080952.github.io/tags/iOS%E5%BC%80%E5%8F%91/"/>
+      <category term="iOS开发" scheme="https://daipeihust.github.io/tags/iOS%E5%BC%80%E5%8F%91/"/>
     
   </entry>
   
   <entry>
     <title>iOS开发中的Assets.xcassets和Assets.car</title>
-    <link href="https://948080952.github.io/posts/assets_in_ios/"/>
-    <id>https://948080952.github.io/posts/assets_in_ios/</id>
+    <link href="https://daipeihust.github.io/posts/assets_in_ios/"/>
+    <id>https://daipeihust.github.io/posts/assets_in_ios/</id>
     <published>2016-11-13T13:58:09.000Z</published>
     <updated>2017-06-10T05:46:01.000Z</updated>
     
@@ -271,8 +271,8 @@
   
   <entry>
     <title>ios中生产者模式实例：非激励广告架构的优化过程</title>
-    <link href="https://948080952.github.io/posts/no_reward_ads_optimization/"/>
-    <id>https://948080952.github.io/posts/no_reward_ads_optimization/</id>
+    <link href="https://daipeihust.github.io/posts/no_reward_ads_optimization/"/>
+    <id>https://daipeihust.github.io/posts/no_reward_ads_optimization/</id>
     <published>2016-10-30T09:26:33.000Z</published>
     <updated>2017-06-10T05:48:02.000Z</updated>
     
@@ -283,14 +283,14 @@
     </summary>
     
     
-      <category term="iOS开发" scheme="https://948080952.github.io/tags/iOS%E5%BC%80%E5%8F%91/"/>
+      <category term="iOS开发" scheme="https://daipeihust.github.io/tags/iOS%E5%BC%80%E5%8F%91/"/>
     
   </entry>
   
   <entry>
     <title>iOS中UIGestureRecognizer相关问题</title>
-    <link href="https://948080952.github.io/posts/gesture_recognizer_in_ios/"/>
-    <id>https://948080952.github.io/posts/gesture_recognizer_in_ios/</id>
+    <link href="https://daipeihust.github.io/posts/gesture_recognizer_in_ios/"/>
+    <id>https://daipeihust.github.io/posts/gesture_recognizer_in_ios/</id>
     <published>2016-10-20T05:14:11.000Z</published>
     <updated>2017-06-10T05:48:26.000Z</updated>
     
@@ -301,14 +301,14 @@
     </summary>
     
     
-      <category term="iOS开发" scheme="https://948080952.github.io/tags/iOS%E5%BC%80%E5%8F%91/"/>
+      <category term="iOS开发" scheme="https://daipeihust.github.io/tags/iOS%E5%BC%80%E5%8F%91/"/>
     
   </entry>
   
   <entry>
     <title>ios开发：Xcode8制作framework及使用</title>
-    <link href="https://948080952.github.io/posts/make_framework_by_xcode8/"/>
-    <id>https://948080952.github.io/posts/make_framework_by_xcode8/</id>
+    <link href="https://daipeihust.github.io/posts/make_framework_by_xcode8/"/>
+    <id>https://daipeihust.github.io/posts/make_framework_by_xcode8/</id>
     <published>2016-10-07T05:18:15.000Z</published>
     <updated>2017-06-10T05:44:18.000Z</updated>
     
@@ -319,14 +319,14 @@
     </summary>
     
     
-      <category term="iOS开发" scheme="https://948080952.github.io/tags/iOS%E5%BC%80%E5%8F%91/"/>
+      <category term="iOS开发" scheme="https://daipeihust.github.io/tags/iOS%E5%BC%80%E5%8F%91/"/>
     
   </entry>
   
   <entry>
     <title>一个iOS项目总结（二）：界面</title>
-    <link href="https://948080952.github.io/posts/yuxin_summary_series_two/"/>
-    <id>https://948080952.github.io/posts/yuxin_summary_series_two/</id>
+    <link href="https://daipeihust.github.io/posts/yuxin_summary_series_two/"/>
+    <id>https://daipeihust.github.io/posts/yuxin_summary_series_two/</id>
     <published>2016-10-04T09:13:13.000Z</published>
     <updated>2017-06-10T05:41:13.000Z</updated>
     
@@ -338,14 +338,14 @@
     </summary>
     
     
-      <category term="ios开发" scheme="https://948080952.github.io/tags/ios%E5%BC%80%E5%8F%91/"/>
+      <category term="ios开发" scheme="https://daipeihust.github.io/tags/ios%E5%BC%80%E5%8F%91/"/>
     
   </entry>
   
   <entry>
     <title>一个iOS项目总结（一）：网络接口的封装</title>
-    <link href="https://948080952.github.io/posts/yuxin_summary_series_one/"/>
-    <id>https://948080952.github.io/posts/yuxin_summary_series_one/</id>
+    <link href="https://daipeihust.github.io/posts/yuxin_summary_series_one/"/>
+    <id>https://daipeihust.github.io/posts/yuxin_summary_series_one/</id>
     <published>2016-09-24T05:43:42.000Z</published>
     <updated>2017-06-10T05:41:22.000Z</updated>
     
@@ -356,14 +356,14 @@
     </summary>
     
     
-      <category term="iOS开发" scheme="https://948080952.github.io/tags/iOS%E5%BC%80%E5%8F%91/"/>
+      <category term="iOS开发" scheme="https://daipeihust.github.io/tags/iOS%E5%BC%80%E5%8F%91/"/>
     
   </entry>
   
   <entry>
     <title>如何正确使用@synthesize（在有了自动合成属性实例变量之后，@synthesize还有哪些使用场景？）</title>
-    <link href="https://948080952.github.io/posts/how_to_use_synthesize_correctly/"/>
-    <id>https://948080952.github.io/posts/how_to_use_synthesize_correctly/</id>
+    <link href="https://daipeihust.github.io/posts/how_to_use_synthesize_correctly/"/>
+    <id>https://daipeihust.github.io/posts/how_to_use_synthesize_correctly/</id>
     <published>2016-09-21T10:21:08.000Z</published>
     <updated>2017-06-10T05:39:20.000Z</updated>
     
