@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://daipeihust.github.io/"/>
-  <updated>2017-10-26T12:55:29.684Z</updated>
+  <updated>2017-10-26T12:59:28.413Z</updated>
   <id>https://daipeihust.github.io/</id>
   
   <author>
@@ -20,11 +20,12 @@
     <link href="https://daipeihust.github.io/posts/cross_firewall_with_digitalocean_shadowsocks/"/>
     <id>https://daipeihust.github.io/posts/cross_firewall_with_digitalocean_shadowsocks/</id>
     <published>2017-10-23T08:05:50.000Z</published>
-    <updated>2017-10-26T12:55:29.684Z</updated>
+    <updated>2017-10-26T12:59:28.413Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;一直以来上谷歌搜索东西都异常麻烦，每次搜索都是一件十分心累的事情，Baidu实在搜不到东西，Bing效果也不怎么样。VPN各种不稳定，即使是自己买的VPN上网体验也十分差（可能是我买的是太便宜的VPN），然后无意间看到bestswifter的一篇全自动上网方案的&lt;a hre
+      &lt;p&gt;一直以来上谷歌搜索东西都异常麻烦，每次搜索都是一件十分心累的事情，Baidu实在搜不到东西，Bing效果也不怎么样。VPN各种不稳定，即使是自己买的VPN上网体验也十分差（可能是我买的是太便宜的VPN），然后无意间看到bestswifter的一篇全自动上网方案的&lt;a href=&quot;http://fullstack.blog/2017/09/26/%E5%85%A8%E8%87%AA%E5%8A%A8%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E6%96%B9%E6%A1%88%E5%88%86%E4%BA%AB/&quot;&gt;文章&lt;/a&gt;，觉得这种全自动的方案真的很赞，于是就动手搭了一个VPS。&lt;/p&gt;
+&lt;p&gt;这里就将整个过程做个记录，也不完全是重复别人的文章吧，因为在搭建过程中也遇到不少问题，同时记录一下也方便自己后面查阅。&lt;/p&gt;
     
     </summary>
     
