@@ -266,6 +266,122 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://daipeihust.github.io/posts/how_to_use_synthesize_correctly/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DaiPei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/daipei.JPG">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DaiPei's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/posts/how_to_use_synthesize_correctly/" itemprop="url">如何正确使用@synthesize（在有了自动合成属性实例变量之后，@synthesize还有哪些使用场景？）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-09-21T18:21:08+08:00">
+                2016-09-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>这篇博客本来是回答《招聘一个靠谱的iOS》中<em>在有了自动合成属性实例变量之后，@synthesize还有哪些使用场景？</em> 的这一问题，但是写着写着在了解了property的相关内容后，突然冒出了许多对@synthesize使用方法的理解，并且记录了下来，希望分享给大家，与大家一同进步，如果理解的不正确，欢迎在评论区指正，有评论必回！</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/posts/how_to_use_synthesize_correctly/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://daipeihust.github.io/posts/source_code_learning_of_runtime_imp/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -730,130 +846,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://daipeihust.github.io/posts/implement_scrollnumberlabel/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="DaiPei">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/daipei.JPG">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="DaiPei's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/posts/implement_scrollnumberlabel/" itemprop="url">自己实现的一个可以滚动展示数字的控件：DPScrollNumberLabel</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-07-10T14:47:20+08:00">
-                2016-07-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>第一次写博客，有点小激动，同时也害怕写的很烂，所以希望大家能够包容，如果大家觉得看不下去我的博客，可以直接翻到最后有源码和demo的github地址。开发ios也有大半年了，所以想要尝试一下写点博客，好了废话不多说了下面开始正题了。</p>
-<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>由于公司前段时间项目里要用到一个可以滚动的数字标签，所以就写了这样一个控件，现在有时间了，就写篇博客记录一下实现这个控件的过程。<br><br><br><strong>上一张gif动画</strong>        </p>
-<img src="/posts/implement_scrollnumberlabel/1.gif" alt="image" title="image">
-<p>​<br>这个控件的逻辑是当个位数从0~9~0时十位数向上滚动1，当十位完成一个0~9~0循环时，百位向上滚动1依次类推</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/posts/implement_scrollnumberlabel/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -898,7 +895,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-count">26</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>

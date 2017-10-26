@@ -97,7 +97,7 @@
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="DaiPei's Blog">
-<meta property="og:url" content="https://daipeihust.github.io/archives/page/5/index.html">
+<meta property="og:url" content="https://daipeihust.github.io/page/6/index.html">
 <meta property="og:site_name" content="DaiPei's Blog">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DaiPei's Blog">
@@ -128,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="https://daipeihust.github.io/archives/page/5/"/>
+  <link rel="canonical" href="https://daipeihust.github.io/page/6/"/>
 
 
 
 
 
-  <title>Archive | DaiPei's Blog</title>
+  <title>DaiPei's Blog</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -160,7 +160,9 @@
     
   
 
-  <div class="container sidebar-position-left  page-archive  ">
+  <div class="container sidebar-position-left 
+   page-home 
+ ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -253,218 +255,133 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
+  <section id="posts" class="posts-expand">
+    
+      
 
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
+  
 
-    <span class="archive-page-counter">
-      
-      
-      
-        
-      
-      Um..! 26 posts in total. Keep on posting.
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://daipeihust.github.io/posts/implement_scrollnumberlabel/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DaiPei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/daipei.JPG">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DaiPei's Blog">
     </span>
 
     
+      <header class="post-header">
 
-      
-      
-      
-
-      
         
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2016">2016</h2>
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/posts/implement_scrollnumberlabel/" itemprop="url">自己实现的一个可以滚动展示数字的控件：DPScrollNumberLabel</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-07-10T14:47:20+08:00">
+                2016-07-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
         </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
       
       
 
       
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
         
-            <a class="post-title-link" href="/posts/how_to_use_synthesize_correctly/" itemprop="url">
-              
-                <span itemprop="name">如何正确使用@synthesize（在有了自动合成属性实例变量之后，@synthesize还有哪些使用场景？）</span>
-              
+          <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>第一次写博客，有点小激动，同时也害怕写的很烂，所以希望大家能够包容，如果大家觉得看不下去我的博客，可以直接翻到最后有源码和demo的github地址。开发ios也有大半年了，所以想要尝试一下写点博客，好了废话不多说了下面开始正题了。</p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>由于公司前段时间项目里要用到一个可以滚动的数字标签，所以就写了这样一个控件，现在有时间了，就写篇博客记录一下实现这个控件的过程。<br><br><br><strong>上一张gif动画</strong>        </p>
+<img src="/posts/implement_scrollnumberlabel/1.gif" alt="image" title="image">
+<p>​<br>这个控件的逻辑是当个位数从0~9~0时十位数向上滚动1，当十位完成一个0~9~0循环时，百位向上滚动1依次类推</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/posts/implement_scrollnumberlabel/#more" rel="contents">
+              Read more &raquo;
             </a>
+          </div>
+          <!--/noindex-->
         
-      </h2>
+      
+    </div>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-09-21T18:21:08+08:00"
-              content="2016-09-21" >
-          09-21
-        </time>
-      </div>
+    <div>
+      
+    </div>
 
-    </header>
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
   </article>
 
 
-
     
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/posts/source_code_learning_of_runtime_imp/" itemprop="url">
-              
-                <span itemprop="name">Objective-C runtime源码学习之IMP寻址（不包括消息转发部分）</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-09-17T14:28:06+08:00"
-              content="2016-09-17" >
-          09-17
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/posts/how_to_get_imp_address_by_selector/" itemprop="url">
-              
-                <span itemprop="name">runtime如何通过selector找到对应的IMP地址？（分别考虑类方法和实例方法）</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-09-05T09:27:34+08:00"
-              content="2016-09-05" >
-          09-05
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/posts/initial_method_in_ios/" itemprop="url">
-              
-                <span itemprop="name">ios中的初始化函数</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-08-27T21:45:29+08:00"
-              content="2016-08-27" >
-          08-27
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/posts/login_incorrect_problem_on_mac/" itemprop="url">
-              
-                <span itemprop="name">mac终端Login Incorrect问题</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-08-22T20:50:46+08:00"
-              content="2016-08-22" >
-          08-22
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/archives/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/archives/page/6/">6</a><a class="extend next" rel="next" href="/archives/page/6/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span>
   </nav>
-
 
 
 
@@ -695,12 +612,10 @@
   
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
 
+  
 
   
 

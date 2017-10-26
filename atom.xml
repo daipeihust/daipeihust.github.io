@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://daipeihust.github.io/"/>
-  <updated>2017-06-10T05:49:53.000Z</updated>
+  <updated>2017-10-26T12:55:29.684Z</updated>
   <id>https://daipeihust.github.io/</id>
   
   <author>
@@ -14,6 +14,22 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>DigitalOcean+Shadowsocks VPS搭建 | Mac端+iOS端全自动科学上网方案</title>
+    <link href="https://daipeihust.github.io/posts/cross_firewall_with_digitalocean_shadowsocks/"/>
+    <id>https://daipeihust.github.io/posts/cross_firewall_with_digitalocean_shadowsocks/</id>
+    <published>2017-10-23T08:05:50.000Z</published>
+    <updated>2017-10-26T12:55:29.684Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;一直以来上谷歌搜索东西都异常麻烦，每次搜索都是一件十分心累的事情，Baidu实在搜不到东西，Bing效果也不怎么样。VPN各种不稳定，即使是自己买的VPN上网体验也十分差（可能是我买的是太便宜的VPN），然后无意间看到bestswifter的一篇全自动上网方案的&lt;a hre
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>Masonry源码分析</title>
@@ -357,22 +373,6 @@
     
     
       <category term="iOS开发" scheme="https://daipeihust.github.io/tags/iOS%E5%BC%80%E5%8F%91/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>如何正确使用@synthesize（在有了自动合成属性实例变量之后，@synthesize还有哪些使用场景？）</title>
-    <link href="https://daipeihust.github.io/posts/how_to_use_synthesize_correctly/"/>
-    <id>https://daipeihust.github.io/posts/how_to_use_synthesize_correctly/</id>
-    <published>2016-09-21T10:21:08.000Z</published>
-    <updated>2017-06-10T05:39:20.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;写在前面&quot;&gt;&lt;a href=&quot;#写在前面&quot; class=&quot;headerlink&quot; title=&quot;写在前面&quot;&gt;&lt;/a&gt;写在前面&lt;/h2&gt;&lt;p&gt;这篇博客本来是回答《招聘一个靠谱的iOS》中&lt;em&gt;在有了自动合成属性实例变量之后，@synthesize还有哪些使用场景？&lt;/em&gt; 的这一问题，但是写着写着在了解了property的相关内容后，突然冒出了许多对@synthesize使用方法的理解，并且记录了下来，希望分享给大家，与大家一同进步，如果理解的不正确，欢迎在评论区指正，有评论必回！&lt;/p&gt;
-    
-    </summary>
-    
     
   </entry>
   
