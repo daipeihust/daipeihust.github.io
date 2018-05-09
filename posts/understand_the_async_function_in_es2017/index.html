@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="JavaScript," />
 
 
 
@@ -95,19 +95,25 @@
 
 
 
-<meta name="description" content="前言最近在使用SKStoreProductViewController时遇到很多坑，上网搜索时发现关于这个东西的讨论不多，stack overflow上也并没有找到我需要的答案，经过与其3天的抗争，总算是爬出了这些坑，赶紧写篇博客冷静一下。
-正文首先我们先从SKStoreProductViewController说起，这是一个应用内的应用商店，就是说在应用内部无须跳转到应用商店就可以预览并下载应用">
+<meta name="description" content="ES2017标准中引入了异步函数的特性
+异步函数内部有等待的操作，等待promise执行耗时操做后的结果，并根据结果执行一些逻辑。
+异步函数有意思的地方在于虽然内部有耗时操作，但是被调用后却能够立即返回。
+12345678910111213141516function resolveAfter2Seconds() &amp;#123;  return new Promise(resolve =&amp;gt; &amp;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SKStoreProductViewController中的坑">
-<meta property="og:url" content="https://daipeihust.github.io/posts/problem_in_skstoreproductviewcontroller/index.html">
+<meta property="og:title" content="浅谈我对ES2017中异步函数的理解">
+<meta property="og:url" content="https://daipeihust.github.io/posts/understand_the_async_function_in_es2017/index.html">
 <meta property="og:site_name" content="DaiPei's Blog">
-<meta property="og:description" content="前言最近在使用SKStoreProductViewController时遇到很多坑，上网搜索时发现关于这个东西的讨论不多，stack overflow上也并没有找到我需要的答案，经过与其3天的抗争，总算是爬出了这些坑，赶紧写篇博客冷静一下。
-正文首先我们先从SKStoreProductViewController说起，这是一个应用内的应用商店，就是说在应用内部无须跳转到应用商店就可以预览并下载应用">
-<meta property="og:updated_time" content="2017-06-10T05:51:59.000Z">
+<meta property="og:description" content="ES2017标准中引入了异步函数的特性
+异步函数内部有等待的操作，等待promise执行耗时操做后的结果，并根据结果执行一些逻辑。
+异步函数有意思的地方在于虽然内部有耗时操作，但是被调用后却能够立即返回。
+12345678910111213141516function resolveAfter2Seconds() &amp;#123;  return new Promise(resolve =&amp;gt; &amp;">
+<meta property="og:updated_time" content="2018-05-09T12:22:39.691Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SKStoreProductViewController中的坑">
-<meta name="twitter:description" content="前言最近在使用SKStoreProductViewController时遇到很多坑，上网搜索时发现关于这个东西的讨论不多，stack overflow上也并没有找到我需要的答案，经过与其3天的抗争，总算是爬出了这些坑，赶紧写篇博客冷静一下。
-正文首先我们先从SKStoreProductViewController说起，这是一个应用内的应用商店，就是说在应用内部无须跳转到应用商店就可以预览并下载应用">
+<meta name="twitter:title" content="浅谈我对ES2017中异步函数的理解">
+<meta name="twitter:description" content="ES2017标准中引入了异步函数的特性
+异步函数内部有等待的操作，等待promise执行耗时操做后的结果，并根据结果执行一些逻辑。
+异步函数有意思的地方在于虽然内部有耗时操作，但是被调用后却能够立即返回。
+12345678910111213141516function resolveAfter2Seconds() &amp;#123;  return new Promise(resolve =&amp;gt; &amp;">
 
 
 
@@ -135,13 +141,13 @@
 
 
 
-  <link rel="canonical" href="https://daipeihust.github.io/posts/problem_in_skstoreproductviewcontroller/"/>
+  <link rel="canonical" href="https://daipeihust.github.io/posts/understand_the_async_function_in_es2017/"/>
 
 
 
 
 
-  <title>SKStoreProductViewController中的坑 | DaiPei's Blog</title>
+  <title>浅谈我对ES2017中异步函数的理解 | DaiPei's Blog</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -271,7 +277,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://daipeihust.github.io/posts/problem_in_skstoreproductviewcontroller/">
+    <link itemprop="mainEntityOfPage" href="https://daipeihust.github.io/posts/understand_the_async_function_in_es2017/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="DaiPei">
@@ -288,7 +294,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">SKStoreProductViewController中的坑</h1>
+          <h1 class="post-title" itemprop="name headline">浅谈我对ES2017中异步函数的理解</h1>
         
 
         <div class="post-meta">
@@ -300,8 +306,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-15T11:12:19+08:00">
-                2017-01-15
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-09T20:18:30+08:00">
+                2018-05-09
               </time>
             
 
@@ -319,7 +325,7 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a class="cloud-tie-join-count" href="/posts/problem_in_skstoreproductviewcontroller/#comments" itemprop="discussionUrl">
+                <a class="cloud-tie-join-count" href="/posts/understand_the_async_function_in_es2017/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count join-count" itemprop="commentCount"></span>
                 </a>
               </span>
@@ -345,21 +351,37 @@
       
 
       
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近在使用SKStoreProductViewController时遇到很多坑，上网搜索时发现关于这个东西的讨论不多，stack overflow上也并没有找到我需要的答案，经过与其3天的抗争，总算是爬出了这些坑，赶紧写篇博客冷静一下。</p>
-<h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><p>首先我们先从SKStoreProductViewController说起，这是一个应用内的应用商店，就是说在应用内部无须跳转到应用商店就可以预览并下载应用，和在应用商店内部并无差异，体验是相当不错，但是如果没有找到正确的使用姿势，那么会让你苦不堪言。</p>
+        <p>ES2017标准中引入了异步函数的特性</p>
+<p>异步函数内部有等待的操作，等待promise执行耗时操做后的结果，并根据结果执行一些逻辑。</p>
+<p>异步函数有意思的地方在于虽然内部有耗时操作，但是被调用后却能够立即返回。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">resolveAfter2Seconds</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span> &#123;</div><div class="line">    setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">      resolve(<span class="string">'resolved'</span>);</div><div class="line">    &#125;, <span class="number">2000</span>);</div><div class="line">  &#125;);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">asyncCall</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'calling'</span>);</div><div class="line">  <span class="keyword">var</span> result = <span class="keyword">await</span> resolveAfter2Seconds();</div><div class="line">  <span class="built_in">console</span>.log(result);</div><div class="line">  <span class="comment">// expected output: "resolved"</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">asyncCall();</div></pre></td></tr></table></figure>
+<blockquote>
+<p>此代码引用自<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function">MDN</a></p>
+</blockquote>
 <a id="more"></a>
-<h2 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h2><p>先看看这个东西该怎么使用，废话不多说，直接上代码。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">- (void)viewDidLoad &#123;</div><div class="line">    [super viewDidLoad];</div><div class="line">    </div><div class="line">    //首先实例化一个VC</div><div class="line">    SKStoreProductViewController *storeVC = [[SKStoreProductViewController alloc] init];</div><div class="line">    //然后设置代理，注意这很重要，不如弹出就没法dismiss了</div><div class="line">	storeVC.delegate = self;</div><div class="line">	//接着弹出VC</div><div class="line">	[self presentViewController:storeVC animated:YES completion:nil];</div><div class="line">	//最后加载应用数据</div><div class="line">	[storeVC2 loadProductWithParameters:@&#123;SKStoreProductParameterITunesItemIdentifier:@&quot;1173412177&quot;&#125; completionBlock:^(BOOL result, NSError * _Nullable error) &#123;</div><div class="line">            if (error) &#123;</div><div class="line">            	//handle the error</div><div class="line">            &#125;</div><div class="line">	&#125;];</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">- (void)productViewControllerDidFinish:(SKStoreProductViewController *)viewController &#123;</div><div class="line">	//在代理方法里dismiss这个VC</div><div class="line">    [viewController dismissViewControllerAnimated:YES completion:nil];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>简单的几行代码，就可以实现，但是肯定有人会问为何要弹出VC后再加载数据，那样不会比较慢吗？提前加载体验不是会更好吗？的确是这样，我也是为了这个好的体验，跳进了一个深坑，苹果总是为我们考虑很多，</p>
-<h2 id="预加载"><a href="#预加载" class="headerlink" title="预加载"></a>预加载</h2><p>在我做了预加载之后，遇到了两个问题：</p>
+<p>如果不使用这个特性，当我们调用一个异步接口的时候，我们需要传入一个回调函数，由异步接口的实现来调用回调逻辑</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">resolveAfter2Seconds</span>(<span class="params">callback</span>) </span>&#123;</div><div class="line">    setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        callback(<span class="string">'resolved'</span>)</div><div class="line">    &#125;, <span class="number">2000</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">syncCall</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'calling'</span>);</div><div class="line">    resolveAfter2Seconds(<span class="function"><span class="keyword">function</span>(<span class="params">result</span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(result);</div><div class="line">    &#125;);</div><div class="line">&#125;</div><div class="line"></div><div class="line">syncCall();</div></pre></td></tr></table></figure>
 <ul>
-<li>在弹出StoreVC时没有反应，并且应用会卡住几秒</li>
-<li>弹出一个连取消都没有的空白VC</li>
+<li><p>使用异步函数的特性后，从形态来看，异步的接口变成了同步的接口，不需要再传入回调函数</p>
+</li>
+<li><p>promise对象作为其中的桥梁，执行耗时操作，并传递执行后的结果</p>
+</li>
+<li><p>耗时操作从以前提供异步接口的函数中转移到了异步函数中，在异步函数中进行同步操做</p>
+</li>
+<li><p>回调函数中的逻辑移到了异步函数中，异步函数可以看成对之前异步接口调用的封装</p>
+</li>
 </ul>
-<p>在排除了我自身的bug后我确定这是SKStoreProductViewController的问题，上面的两个问题都是由于预加载出问题时导致的，注意我这里的用词：预加载出问题而不是出错，也就是说加载的completion的block还没调用时，你还不知道这个时候加载出错时只是它内部加载有问题时，这是你present这个VC时就会导致应用卡顿。对于弹出一个取消按钮都没有的空白VC的问题也是因为加载没有完成，导致取消没有显示出来，当然这个不是必现的，有时还会遇到一种情况就是开始弹出一个没有取消按钮的VC，过一会又加载出来了。</p>
-<p>所以如果你一定要做预加载的话，唯一的解决方案就是当收到成功的回掉以后才能弹出这个VC，否则放弃这个VC，重新实例化一个StoreVC然后弹出并加载（不要忘记设置代理），因为这样是一定不会出问题的，为什么可以这么肯定呢？因为如果呢实例化一个SKStoreProductViewController，不做任何加载工作此时弹出并不会出任何一个问题，只是这是一个空白的VC，但是取消按钮一定是存在的，就是说最多让别人觉得这网速很慢，加载不出来，而不会觉得这是一个bug。</p>
-<h2 id="不要两次弹出同一个VC"><a href="#不要两次弹出同一个VC" class="headerlink" title="不要两次弹出同一个VC"></a>不要两次弹出同一个VC</h2><p>还有一个很奇怪的现象，就是一个做过加载操作的SKStoreProductViewController，在弹出以后，这个SKStoreProductViewController就被废弃了，什么意思呢？就是说你不能再次弹出这个VC，不然也会出现上面的bug，就是一个没有取消按钮的VC，即使你在弹出前再次调用此VC的load方法，结果都是一样，他不会理你的，就是不给你弹两次，这都是一次性的VC，这显然是苹果故意为之，只是不明白这种设计的背后是出于怎样的考虑，我无法想象。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>总之，对于SKStoreProductViewController来说，记住尽量不要去做预加载，因为在网速不错的情况下弹出后再加载体验也很不错，加载速度是很快的，这时根本不需要做什么预加载，而对于网速不好的用户，即使做了预加载也可能加载不出来，也不需要做预加载。所以能不做预加载就尽量别做，这里的预加载只会让你无比抓狂！如果呢一定要做预加载，那么记住一点很重要那就是：只有收到成功回掉SKStoreProductViewController才能弹出，否则乖乖的弹出后加载，这样才能避免一些不可描述的bug。</p>
+<p>在我看来异步函数有以下优点和缺点：</p>
+<p>优点：避免回调函数的层层嵌套，用同步的形式实现了异步的功能</p>
+<p>缺点：</p>
+<ol>
+<li>屏蔽了实现细节，提高了理解成本</li>
+<li><p>相较之前多出了一个函数</p>
+<p> 为什么这样说，如果不使用异步函数的特性，我们可以直接调用异步接口，并传入回调函数，那么只存在异步接口这一个函数，使用异步函数特性后，之前的异步接口变成同步接口，直接返回一个promise对象，这时候又需要一个额外的异步函数来调用这个同步接口同时包含回调函数中的逻辑</p>
+</li>
+</ol>
+<p>从某些角度来看，之前的回调函数变成了现在的异步函数，匿名函数变成了非匿名函数。</p>
+<p>（PS：异步接口是指含有需要传入回调函数作为参数的接口）</p>
 
       
     </div>
@@ -387,6 +409,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+        </div>
+      
 
       
       
@@ -396,8 +424,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/posts/update_cocoaspods_version/" rel="next" title="CocoaPods版本升级">
-                <i class="fa fa-chevron-left"></i> CocoaPods版本升级
+              <a href="/posts/cross_firewall_with_digitalocean_shadowsocks/" rel="next" title="DigitalOcean+Shadowsocks VPS搭建 | Mac端+iOS端全自动科学上网方案">
+                <i class="fa fa-chevron-left"></i> DigitalOcean+Shadowsocks VPS搭建 | Mac端+iOS端全自动科学上网方案
               </a>
             
           </div>
@@ -405,10 +433,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/posts/trap_in_method_swizzling/" rel="prev" title="Method Swizzling中的陷阱">
-                Method Swizzling中的陷阱 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -457,17 +481,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/daipei.JPG"
@@ -547,22 +562,6 @@
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#正文"><span class="nav-number">2.</span> <span class="nav-text">正文</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简单使用"><span class="nav-number">2.1.</span> <span class="nav-text">简单使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#预加载"><span class="nav-number">2.2.</span> <span class="nav-text">预加载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不要两次弹出同一个VC"><span class="nav-number">2.3.</span> <span class="nav-text">不要两次弹出同一个VC</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       

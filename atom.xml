@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://daipeihust.github.io/"/>
-  <updated>2017-10-26T13:04:26.024Z</updated>
+  <updated>2018-05-09T12:22:39.691Z</updated>
   <id>https://daipeihust.github.io/</id>
   
   <author>
@@ -16,11 +16,35 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>浅谈我对ES2017中异步函数的理解</title>
+    <link href="https://daipeihust.github.io/posts/understand_the_async_function_in_es2017/"/>
+    <id>https://daipeihust.github.io/posts/understand_the_async_function_in_es2017/</id>
+    <published>2018-05-09T12:18:30.000Z</published>
+    <updated>2018-05-09T12:22:39.691Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;ES2017标准中引入了异步函数的特性&lt;/p&gt;
+&lt;p&gt;异步函数内部有等待的操作，等待promise执行耗时操做后的结果，并根据结果执行一些逻辑。&lt;/p&gt;
+&lt;p&gt;异步函数有意思的地方在于虽然内部有耗时操作，但是被调用后却能够立即返回。&lt;/p&gt;
+&lt;figure class=&quot;highlight js&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;11&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;12&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;13&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;14&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;15&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;16&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;resolveAfter2Seconds&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;) &lt;/span&gt;&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;built_in&quot;&gt;Promise&lt;/span&gt;(&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;params&quot;&gt;resolve&lt;/span&gt; =&amp;gt;&lt;/span&gt; &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    setTimeout(&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;params&quot;&gt;()&lt;/span&gt; =&amp;gt;&lt;/span&gt; &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;      resolve(&lt;span class=&quot;string&quot;&gt;&#39;resolved&#39;&lt;/span&gt;);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &amp;#125;, &lt;span class=&quot;number&quot;&gt;2000&lt;/span&gt;);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  &amp;#125;);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;asyncCall&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;) &lt;/span&gt;&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(&lt;span class=&quot;string&quot;&gt;&#39;calling&#39;&lt;/span&gt;);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  &lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; result = &lt;span class=&quot;keyword&quot;&gt;await&lt;/span&gt; resolveAfter2Seconds();&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(result);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  &lt;span class=&quot;comment&quot;&gt;// expected output: &quot;resolved&quot;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;asyncCall();&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;blockquote&gt;
+&lt;p&gt;此代码引用自&lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function&quot;&gt;MDN&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+    
+      <category term="JavaScript" scheme="https://daipeihust.github.io/tags/JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
     <title>DigitalOcean+Shadowsocks VPS搭建 | Mac端+iOS端全自动科学上网方案</title>
     <link href="https://daipeihust.github.io/posts/cross_firewall_with_digitalocean_shadowsocks/"/>
     <id>https://daipeihust.github.io/posts/cross_firewall_with_digitalocean_shadowsocks/</id>
     <published>2017-10-23T08:05:50.000Z</published>
-    <updated>2017-10-26T13:04:26.024Z</updated>
+    <updated>2018-05-09T12:22:17.514Z</updated>
     
     <summary type="html">
     
@@ -356,24 +380,6 @@
     
     
       <category term="ios开发" scheme="https://daipeihust.github.io/tags/ios%E5%BC%80%E5%8F%91/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>一个iOS项目总结（一）：网络接口的封装</title>
-    <link href="https://daipeihust.github.io/posts/yuxin_summary_series_one/"/>
-    <id>https://daipeihust.github.io/posts/yuxin_summary_series_one/</id>
-    <published>2016-09-24T05:43:42.000Z</published>
-    <updated>2017-06-10T05:41:22.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;写在前面&quot;&gt;&lt;a href=&quot;#写在前面&quot; class=&quot;headerlink&quot; title=&quot;写在前面&quot;&gt;&lt;/a&gt;写在前面&lt;/h2&gt;&lt;p&gt;今年暑假，自己独立完成了一个简单的iOS的APP，是一个bbs的客户端，叫做喻信星空。现在正在测试，准备将其上架app store。但是光做项目不做总结肯定不行，所以这里写篇博客，把项目里遇到的坑都记录下来，不过这篇博客里肯定是有干货的，所以如果你看到了这里，希望你能把它看完，并顶我一下(^-^)&lt;br&gt;这是一系列博客，此系列共两篇文章，此篇博客是该系列博客的第一篇：网络接口的封装。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="iOS开发" scheme="https://daipeihust.github.io/tags/iOS%E5%BC%80%E5%8F%91/"/>
     
   </entry>
   
